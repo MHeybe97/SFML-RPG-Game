@@ -22,7 +22,7 @@ void Game::initWindow()
 	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode(); //set window size
 	bool fullscreen = false;
 	unsigned framerate_limit = 120; //set framerete to 120
-	bool vertical_sync_enabled = false; //disable vsync
+	bool vertical_sync_enabled = false; //disable/enable vsync
 	unsigned antialiasing_level = 0;
 
 	//check if file is open

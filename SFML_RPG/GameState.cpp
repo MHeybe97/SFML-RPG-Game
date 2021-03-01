@@ -28,9 +28,10 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-	sf::Texture temp;
-	temp.loadFromFile("Resources/Images/Sprites/Player/test.png");
-	this->textures["PLAYER_IDLE"] = temp;
+	if (!this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Sprites/Player/test.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE!";
+	}
 }
 
 void GameState::initPlayers()
