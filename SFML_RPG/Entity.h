@@ -8,8 +8,9 @@ class Entity
 private:
 	void initVariables();
 protected:
-	sf::Texture* texture;
-	sf::Sprite* sprite;
+	//sf::Texture* texture;
+	sf::Sprite sprite;
+
 	MovementComponent* movementComponent;
 	//float movementSpeed; //entity speed
 public:
@@ -17,11 +18,11 @@ public:
 	virtual ~Entity(); //destructor
 
 	//component functions
-	void createSprite(sf::Texture* texture);
-	void createMovementComponent(const float maxVelocity);
+	void setTexture(sf::Texture& texture);
+	void createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
 	//functions
 	virtual void setPosition(const float x, const float y);
-	virtual void move(const float& dt, const float x, const float y); //move the entity
+	virtual void move(const float x, const float y, const float& dt); //move the entity
 
 	virtual void update(const float& dt); //update entity
 	virtual void render(sf::RenderTarget* target); //render entity

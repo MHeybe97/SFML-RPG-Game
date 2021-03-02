@@ -9,20 +9,20 @@ void Player::initVariables()
 
 void Player::initComponents()
 {
-	this->createMovementComponent(210.f);
+	this->createMovementComponent(200.f, 15.f, 5.f);
 }
 
-//Constructors / Destrutors
-Player::Player(float x, float y, sf::Texture* texture)
+//Constructors 
+Player::Player(float x, float y, sf::Texture& texture)
 {
 	this->initVariables();
 	this->initComponents();
 
-	this->createSprite(texture);
+	this->setTexture(texture);
 	this->setPosition(x, y);
 }
 
-
+//Destructors
 Player::~Player()
 {
 }
