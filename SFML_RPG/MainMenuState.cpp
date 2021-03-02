@@ -53,19 +53,37 @@ void MainMenuState::initKeybinds()
 void MainMenuState::initButtons()
 {
 	//New Game Button
-	this->buttons["GAME_STATE_BTN"] = new Button(160, 220, 150, 50,
-		&this->font, "New Game",
-		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	this->buttons["GAME_STATE_BTN"] = new Button(
+		160.f, 220.f, 150.f, 50.f,
+		&this->font, "New Game", 20,
+		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
+		);
 
 	//Settings Button
-	this->buttons["SETTINGS"] = new Button(160, 320, 150, 50,
-		&this->font, "Settings",
-		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	this->buttons["SETTINGS"] = new Button(
+		160.f, 320.f, 150.f, 50.f,
+		&this->font, "Settings", 20,
+		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
+	);
+
+	//Settings Button
+	this->buttons["EDITOR_STATE"] = new Button(
+		160.f, 420.f, 150.f, 50.f,
+		&this->font, "Editor", 20,
+		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
+	);
 
 	//Quit Game Button
-	this->buttons["EXIT_STATE"] = new Button(160, 420, 150, 50,
-		&this->font, "Quit",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	this->buttons["EXIT_STATE"] = new Button(
+		160.f, 520.f, 150.f, 50.f,
+		&this->font, "Quit", 20,
+		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
+	);
 }
 
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
@@ -76,13 +94,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	this->initFonts(); //initialise fonts
 	this->initKeybinds(); //initialise keybinds
 	this->initButtons(); //initialise buttons
-
-	
-
-	//this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y)); //set backgrown to the size of the window
-	//this->background.setFillColor(sf::Color::Magenta); //set the backgrounds fill colour
 }
-
 
 MainMenuState::~MainMenuState()
 {
@@ -93,8 +105,6 @@ MainMenuState::~MainMenuState()
 		delete it->second;
 	}
 }
-
-
 
 void MainMenuState::updateInput(const float & dt)
 {

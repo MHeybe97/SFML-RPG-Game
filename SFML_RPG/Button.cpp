@@ -3,29 +3,36 @@
 
 
 Button::Button(float x, float y, float width, float height,
-	sf::Font* font, std::string text,
-	sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
+	sf::Font* font, std::string text, unsigned character_size,
+	sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
+	sf::Color idle_Color, sf::Color hover_Color, sf::Color active_Color)
 {
 	this->buttonState = BTN_IDLE; //set button on idle
 
 	this->shape.setPosition(sf::Vector2f(x, y)); //set button position
 	this->shape.setSize(sf::Vector2f(width, height)); //set button size
 
+	this->shape.setFillColor(idle_Color); //set idle color to be first
+
 	this->font = font; //button font
 	this->text.setFont(*this->font); //set button font
 	this->text.setString(text); //set as the text
-	this->text.setFillColor(sf::Color::White); //set the font color
-	this->text.setCharacterSize(20); //set the character size
+	this->text.setFillColor(text_idle_color); //set the font color
+	this->text.setCharacterSize(character_size); //set the character size
 	this->text.setPosition( 
 		this->shape.getPosition().x + (shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
 		this->shape.getPosition().y + (shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f
 	); //set the text on the button
 
-	this->idleColor = idleColor; //mouse idle color
-	this->hoverColor = hoverColor; //mouse hover color
-	this->activeColor = activeColor; //mouse active color
+	this->textIdleColor = text_idle_color;
+	this->textHoverColor = text_hover_color;
+	this->textActiveColor = text_active_color;
 
-	this->shape.setFillColor(this->idleColor); //set idle color to be first
+	this->idleColor = idle_Color; //mouse idle color
+	this->hoverColor = hover_Color; //mouse hover color
+	this->activeColor = active_Color; //mouse active color
+
+	
 
 }
 
@@ -69,15 +76,19 @@ void Button::update(const sf::Vector2f mousePos)
 	{
 	case BTN_IDLE:
 		this->shape.setFillColor(this->idleColor); //if button idle then set idle color
+		this->text.setFillColor(this->textIdleColor);
 		break;
 	case BTN_HOVER:
 		this->shape.setFillColor(this->hoverColor); //if button hovered then set hover color
+		this->text.setFillColor(this->textHoverColor);
 		break;
 	case BTN_ACTIVE:
 		this->shape.setFillColor(this->activeColor); //if button is pressed then set active color
+		this->text.setFillColor(this->textActiveColor);
 		break;
 	default:
 		this->shape.setFillColor(sf::Color::Red); //set default color to red
+		this->text.setFillColor(sf::Color::Blue);
 		break;
 
 	}
