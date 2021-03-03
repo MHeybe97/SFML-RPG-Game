@@ -68,7 +68,7 @@ void MainMenuState::initButtons()
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
-	//Settings Button
+	//Editor Button
 	this->buttons["EDITOR_STATE"] = new Button(
 		160.f, 420.f, 150.f, 50.f,
 		&this->font, "Editor", 20,
@@ -77,7 +77,6 @@ void MainMenuState::initButtons()
 	);
 
 	//Quit Game Button
-
 	this->buttons["EXIT_STATE"] = new Button(
 		160.f, 520.f, 150.f, 50.f,
 		&this->font, "Quit", 20,
@@ -160,7 +159,7 @@ void MainMenuState::render(sf::RenderTarget* target)
 
 	this->renderButtons(target); //render buttons
 
-	//For Debugging
+	//MousePosition For Debugging
 	sf::Text mouseText;
 	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
 	mouseText.setFont(this->font);
