@@ -53,7 +53,7 @@ void MainMenuState::initKeybinds()
 void MainMenuState::initButtons()
 {
 	//New Game Button
-	this->buttons["GAME_STATE_BTN"] = new Button(
+	this->buttons["GAME_STATE"] = new Button(
 		160.f, 220.f, 150.f, 50.f,
 		&this->font, "New Game", 20,
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
@@ -119,9 +119,17 @@ void MainMenuState::updateButtons()
 	}
 
 	//New game
-	if (this->buttons["GAME_STATE_BTN"]->isPressed())
+	if (this->buttons["GAME_STATE"]->isPressed())
 	{
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+	}
+
+	//Settings
+
+	//Editor
+	if (this->buttons["EDITOR_STATE"]->isPressed())
+	{
+		this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
 	}
 
 	//Quit the game

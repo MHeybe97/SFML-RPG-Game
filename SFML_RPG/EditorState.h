@@ -1,16 +1,11 @@
-/**\file MainMenuState.h*/
+/**\file EditorState*/
 #pragma once
-
-#include "GameState.h"
-#include "EditorState.h"
+#include "State.h"
 #include "Button.h"
-
-class MainMenuState : public State
+class EditorState : public State
 {
 private:
 	//Variables
-	sf::Texture backgroundTexture;
-	sf::RectangleShape background; //window background
 	sf::Font font; // button font
 
 	//Button* gamestate_btn;
@@ -24,8 +19,8 @@ private:
 	void initButtons(); //initialise buttons
 
 public:
-	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //contructor
-	virtual ~MainMenuState(); //destructor
+	EditorState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //contructor
+	virtual ~EditorState(); //destructor
 
 	//functions
 
@@ -36,5 +31,4 @@ public:
 	void renderButtons(sf::RenderTarget* target = nullptr); //render button to the screen
 	void render(sf::RenderTarget* target = nullptr); //render menu state window
 };
-
 

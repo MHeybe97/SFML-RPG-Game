@@ -8,6 +8,7 @@ void Entity::initVariables()
 	//this->texture = NULL;
 	
 	this->movementComponent = NULL;
+	this->animationComponent = NULL;
 	//this->movementSpeed = 100.f; //set entity speed
 }
 

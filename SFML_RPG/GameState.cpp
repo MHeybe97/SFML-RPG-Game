@@ -48,13 +48,10 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 	this->initPlayers();
 }
 
-
 GameState::~GameState()
 {
 	delete this->player;
 }
-
-
 
 void GameState::updateInput(const float & dt)
 {
