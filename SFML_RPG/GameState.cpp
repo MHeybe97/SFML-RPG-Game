@@ -84,5 +84,5 @@ void GameState::render(sf::RenderTarget* target)
 	if (!target) //if there is nothing on the target
 		target = this->window; //then set the target to the window
 
-	this->player->render(target); //render the player on the window
+	this->player->render(*target); //render the player on the window
 }

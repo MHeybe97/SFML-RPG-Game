@@ -149,7 +149,7 @@ void MainMenuState::update(const float& dt)
 	
 }
 
-void MainMenuState::renderButtons(sf::RenderTarget * target)
+void MainMenuState::renderButtons(sf::RenderTarget& target)
 {
 	//this->gamestate_btn->render(target);
 	for (auto &it : this->buttons)
@@ -165,7 +165,7 @@ void MainMenuState::render(sf::RenderTarget* target)
 
 	target->draw(this->background); //render background
 
-	this->renderButtons(target); //render buttons
+	this->renderButtons(*target); //render buttons
 
 	//MousePosition For Debugging
 	sf::Text mouseText;

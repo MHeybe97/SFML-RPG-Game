@@ -1,6 +1,7 @@
 /**\file Entity.h*/
 #pragma once
 
+#include "HitBoxComponent.h"
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
 
@@ -12,6 +13,7 @@ protected:
 	//sf::Texture* texture;
 	sf::Sprite sprite;
 
+	HitBoxComponent* hitboxComponent;
 	MovementComponent* movementComponent;
 	AnimationComponent* animationComponent;
 	//float movementSpeed; //entity speed
@@ -21,6 +23,9 @@ public:
 
 	//component functions
 	void setTexture(sf::Texture& texture);
+	void createHitboxComponent(sf::Sprite& sprite, 
+		float offset_x, float offset_y,
+		float width, float height);
 	void createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
 	void createAnimationComponent(sf::Texture& texture_sheet);
 
@@ -29,6 +34,6 @@ public:
 	virtual void move(const float x, const float y, const float& dt); //move the entity
 
 	virtual void update(const float& dt); //update entity
-	virtual void render(sf::RenderTarget* target); //render entity
+	virtual void render(sf::RenderTarget& target); //render entity
 };
 

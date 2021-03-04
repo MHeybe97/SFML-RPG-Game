@@ -1,3 +1,4 @@
+/**\file EditorState.cpp*/
 #include "EditorState.h"
 
 //initializer functions
@@ -89,7 +90,7 @@ void EditorState::update(const float& dt)
 	
 }
 
-void EditorState::renderButtons(sf::RenderTarget * target)
+void EditorState::renderButtons(sf::RenderTarget& target)
 {
 	//this->gamestate_btn->render(target);
 	for (auto &it : this->buttons)
@@ -105,7 +106,7 @@ void EditorState::render(sf::RenderTarget* target)
 
 	
 
-	this->renderButtons(target); //render buttons
+	this->renderButtons(*target); //render buttons
 
 	//MousePosition For Debugging
 	sf::Text mouseText;

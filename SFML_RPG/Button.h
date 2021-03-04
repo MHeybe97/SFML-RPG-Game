@@ -41,6 +41,6 @@ public:
 
 	//functions
 	void update(const sf::Vector2f mousePos); //update buttons
-	void render(sf::RenderTarget* target); //render buttons
+	void render(sf::RenderTarget& target); //render buttons
 };
 
