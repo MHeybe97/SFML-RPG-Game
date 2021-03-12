@@ -17,6 +17,8 @@ AnimationComponent::~AnimationComponent()
 	}
 }
 
+
+
 void AnimationComponent::addAnimation(
 	const std::string key, 
 	float animation_timer,
@@ -28,35 +30,106 @@ void AnimationComponent::addAnimation(
 		start_frame_x, start_frame_y, frames_x, frames_y, width, height);
 }
 
-//Functions
-void AnimationComponent::play(const std::string key, const float & dt, const bool priority)
+//Accessors
+const bool & AnimationComponent::isDone(const std::string key) 
 {
-	if (this->lastAnimation != this->animations[key])
-	{
-		if (this->lastAnimation == NULL)
-			this->lastAnimation = this->animations[key];
-		else
-		{
-			this->lastAnimation->reset();
-			this->lastAnimation = this->animations[key];
-		}
-	}
-	
-	this->animations[key]->play(dt);
+	return this->animations[key]->isDone();
 }
 
-void AnimationComponent::play(const std::string key, const float & dt, const float& modifier, const float& modifier_max, const bool priority)
+//Functions
+const bool& AnimationComponent::play(const std::string key, const float & dt, const bool priority)
 {
-	if (this->lastAnimation != this->animations[key])
+	
+	if (this->priorityAnimation) //if there is a priority animation
 	{
-		if (this->lastAnimation == NULL)
-			this->lastAnimation = this->animations[key];
-		else
+		if (this->priorityAnimation == this->animations[key])
 		{
-			this->lastAnimation->reset();
-			this->lastAnimation = this->animations[key];
+			if (this->lastAnimation != this->animations[key])
+			{
+				if (this->lastAnimation == NULL)
+					this->lastAnimation = this->animations[key];
+				else
+				{
+					this->lastAnimation->reset();
+					this->lastAnimation = this->animations[key];
+				}
+			}
+			//remove when priority animation is done
+			if (this->animations[key]->play(dt))
+			{
+				this->priorityAnimation = NULL;
+			}
 		}
 	}
+	else //else play animation if no other priority animation is set
+	{
+		if (priority)
+		{
+			this->priorityAnimation = this->animations[key];
+		}
 
-	this->animations[key]->play(dt, abs(modifier / modifier_max));
+		if (this->lastAnimation != this->animations[key])
+		{
+			if (this->lastAnimation == NULL)
+				this->lastAnimation = this->animations[key];
+			else
+			{
+				this->lastAnimation->reset();
+				this->lastAnimation = this->animations[key];
+			}
+		}
+		this->animations[key]->play(dt);
+	}
+	
+	return this->animations[key]->isDone();
+}
+
+const bool& AnimationComponent::play(const std::string key, const float & dt, const float& modifier, const float& modifier_max, const bool priority)
+{
+	if (this->priorityAnimation) //if there is a priority animation
+	{
+		if (this->priorityAnimation == this->animations[key])
+		{
+			if (this->lastAnimation != this->animations[key])
+			{
+				if (this->lastAnimation == NULL)
+					this->lastAnimation = this->animations[key];
+				else
+				{
+					this->lastAnimation->reset();
+					this->lastAnimation = this->animations[key];
+				}
+			}
+			//remove when priority animation is done
+			if (this->animations[key]->play(dt, abs(modifier / modifier_max)))
+			{
+				this->priorityAnimation = NULL;
+			}
+
+			
+		}
+	}
+	else //else play animation if no other priority animation is set
+	{
+		//if this is a priority animation then set it.
+		if (priority)
+		{
+			this->priorityAnimation = this->animations[key];
+		}
+
+		if (this->lastAnimation != this->animations[key])
+		{
+			if (this->lastAnimation == NULL)
+				this->lastAnimation = this->animations[key];
+			else
+			{
+				this->lastAnimation->reset();
+				this->lastAnimation = this->animations[key];
+			}
+		}
+
+		this->animations[key]->play(dt, abs(modifier / modifier_max));
+	}
+
+	return this->animations[key]->isDone();
 }
