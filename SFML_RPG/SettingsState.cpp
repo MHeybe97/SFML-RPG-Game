@@ -56,7 +56,7 @@ void SettingsState::initButtons()
 	
 
 	//Quit Game Button
-	this->buttons["EXIT_STATE"] = new Button(
+	this->buttons["EXIT_STATE"] = new gui::Button(
 		160.f, 520.f, 150.f, 50.f,
 		&this->font, "Quit", 20,
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),

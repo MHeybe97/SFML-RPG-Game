@@ -1,7 +1,7 @@
 /**\file SettingsState.h*/
 #pragma once
 #include "State.h"
-#include "Button.h"
+#include "Gui.h"
 class SettingsState : public State
 {
 private:
@@ -11,7 +11,7 @@ private:
 	sf::Font font; // button font
 
 	//Button* gamestate_btn;
-	std::map<std::string, Button*> buttons; //button map
+	std::map<std::string, gui::Button*> buttons; //button map
 
 	//functions
 	void initVariables();

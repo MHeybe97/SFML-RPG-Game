@@ -4,7 +4,7 @@
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingsState.h"
-#include "Button.h"
+#include "Gui.h"
 
 class MainMenuState : public State
 {
@@ -15,7 +15,7 @@ private:
 	sf::Font font; // button font
 
 	//Button* gamestate_btn;
-	std::map<std::string, Button*> buttons; //button map
+	std::map<std::string, gui::Button*> buttons; //button map
 
 	//functions
 	void initVariables();
