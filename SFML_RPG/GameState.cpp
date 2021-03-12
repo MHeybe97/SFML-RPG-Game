@@ -26,12 +26,27 @@ void GameState::initKeybinds()
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");*/
 }
 
+void GameState::initFonts()
+{
+	if (!this->font.loadFromFile("Fonts/KurriIslandItaPersonalBold-d95qR.ttf")) //load Kurri Island font from Fonts file
+	{
+		throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT"); //throw error if file was not found
+	}
+}
+
 void GameState::initTextures()
 {
 	if (!this->textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE!";
 	}
+}
+
+void GameState::initPauseMenu()
+{
+	this->pmenu = new PauseMenu(*this->window, this->font);
+
+	this->pmenu->addButton("QUIT", 550.f, "Quit");
 }
 
 void GameState::initPlayers()
@@ -44,7 +59,9 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 	: State(window, supportedKeys, states)
 {
 	this->initKeybinds(); //initialise keybinds
+	this->initFonts();
 	this->initTextures();
+	this->initPauseMenu();
 	this->initPlayers();
 }
 
@@ -54,6 +71,17 @@ GameState::~GameState()
 }
 
 void GameState::updateInput(const float & dt)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime())
+	{
+		if (!this->paused)
+			this->pausedState();
+		else
+			this->unpauseState();
+	}
+}
+
+void GameState::updatePlayerInput(const float & dt)
 {
 	//this->checkForQuit(); //check if esc has been pressed
 
@@ -67,16 +95,34 @@ void GameState::updateInput(const float & dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) //move pplayer down
 		this->player->move(0.f, 1.f, dt);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE")))) 
+	
+}
+
+void GameState::updatePausedMenuButtons()
+{
+	if (this->pmenu->isButtonPressed("QUIT"))
 		this->endState();
 }
 
 void GameState::update(const float& dt)
 {
 	this->updateMousePositions(); //update mouse position in gamestate
-	this->updateInput(dt); //update input in game state
-	
-	this->player->update(dt); //update player
+	this->updateKeytime(dt);
+	this->updateInput(dt);
+
+	if (!this->paused) //unpaused update
+	{
+		
+		this->updatePlayerInput(dt); //update input in game state
+
+		this->player->update(dt); //update player
+	}
+	else //paused update
+	{
+		this->pmenu->update(this->mousePosView);
+		this->updatePausedMenuButtons();
+
+	}
 }
 
 void GameState::render(sf::RenderTarget* target)
@@ -85,4 +131,9 @@ void GameState::render(sf::RenderTarget* target)
 		target = this->window; //then set the target to the window
 
 	this->player->render(*target); //render the player on the window
+
+	if (this->paused) //pause menu render
+	{
+		this->pmenu->render(*target);
+	}
 }

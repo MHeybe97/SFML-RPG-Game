@@ -40,7 +40,7 @@ public:
 	const bool isPressed() const; //check if button is pressed
 
 	//functions
-	void update(const sf::Vector2f mousePos); //update buttons
+	void update(const sf::Vector2f& mousePos); //update buttons
 	void render(sf::RenderTarget& target); //render buttons
 };
 

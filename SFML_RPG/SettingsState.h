@@ -1,12 +1,8 @@
-/**\file MainMenuState.h*/
+/**\file SettingsState.h*/
 #pragma once
-
-#include "GameState.h"
-#include "EditorState.h"
-#include "SettingsState.h"
+#include "State.h"
 #include "Button.h"
-
-class MainMenuState : public State
+class SettingsState : public State
 {
 private:
 	//Variables
@@ -25,17 +21,17 @@ private:
 	void initButtons(); //initialise buttons
 
 public:
-	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //contructor
-	virtual ~MainMenuState(); //destructor
+	SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	virtual ~SettingsState();
 
-	//functions
+	
+	//Accessors
 
-
+    //Functions
 	void updateInput(const float& dt); //update input in menu state
 	void updateButtons(); //update buttons in menu state
 	void update(const float& dt); //update menu state
 	void renderButtons(sf::RenderTarget& target); //render button to the screen
 	void render(sf::RenderTarget* target = nullptr); //render menu state window
 };
-
 

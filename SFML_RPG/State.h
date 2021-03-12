@@ -12,6 +12,9 @@ protected:
 	std::map<std::string, int>* supportedKeys; //map for the supported keys
 	std::map<std::string, int> keybinds; // keybinds
 	bool quit; // to check if we quit application
+	bool paused;
+	float keytime;
+	float keytimeMax;
 
 	sf::Vector2i mousePosScreen; //mouse position on the screen
 	sf::Vector2i mousePosWindow; //mouse position on the window
@@ -27,12 +30,17 @@ public:
 	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //contructor
 	virtual ~State(); //dstructor
 
+	//Accessors
 	const bool& getQuit() const; //quitting the app
+	const bool getKeytime();
 
-	//virtual void endstateUpdate() = 0; //check if the application has been quit
+	//Functions
+	void endState(); // end the state
+	void pausedState();
+	void unpauseState();
 
-	virtual void endState(); // end the state
 	virtual void updateMousePositions(); //update the mouse position
+	virtual void updateKeytime(const float& dt);
 	virtual void updateInput(const float& dt) = 0; //update the input
 	virtual void update(const float& dt) = 0; //update window
 	virtual void render(sf::RenderTarget* target = nullptr) = 0; //rendering to the window
