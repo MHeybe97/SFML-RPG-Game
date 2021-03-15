@@ -1,3 +1,5 @@
+/**\file MainMenuState.cpp*/
+#include "stdafx.h"
 #include "MainMenuState.h"
 
 //initializer functions

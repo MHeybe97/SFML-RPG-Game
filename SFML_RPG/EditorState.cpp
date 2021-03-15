@@ -1,4 +1,5 @@
 /**\file EditorState.cpp*/
+#include "stdafx.h"
 #include "EditorState.h"
 
 //initializer functions

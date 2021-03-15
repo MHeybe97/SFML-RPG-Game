@@ -1,5 +1,6 @@
+/**\file Gui.cpp*/
+#include "stdafx.h"
 #include "Gui.h"
-
 
 
 gui::Button::Button(float x, float y, float width, float height,

@@ -1,6 +1,6 @@
 /**\file MovementComponent.cpp*/
+#include "stdafx.h"
 #include "MovementComponent.h"
-
 
 //construtor
 MovementComponent::MovementComponent(sf::Sprite& sprite, 

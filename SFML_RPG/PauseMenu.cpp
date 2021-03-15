@@ -1,4 +1,5 @@
 /**\PauseMenu.cpp*/
+#include "stdafx.h"
 #include "PauseMenu.h"
 
 

@@ -1,4 +1,5 @@
 /**\Tile.cpp*/
+#include "stdafx.h"
 #include "Tile.h"
 
 

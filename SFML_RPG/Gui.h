@@ -1,15 +1,15 @@
-/**\file Button.h*/
+/**\file Gui.h*/
 #pragma once
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <sstream>
-
-#include "SFML\System.hpp"
-#include "SFML\Window.hpp"
-#include "SFML\Graphics.hpp"
-#include "SFML\Audio.hpp"
+//#include <iostream>
+//#include <ctime>
+//#include <cstdlib>
+//#include <sstream>
+//
+//#include "SFML\System.hpp"
+//#include "SFML\Window.hpp"
+//#include "SFML\Graphics.hpp"
+//#include "SFML\Audio.hpp"
 
 enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE}; //enum for button states
 

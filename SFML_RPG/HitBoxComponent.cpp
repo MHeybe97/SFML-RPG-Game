@@ -1,4 +1,5 @@
 /**\file HitBoxComponent*/
+#include "stdafx.h"
 #include "HitBoxComponent.h"
 
 HitBoxComponent::HitBoxComponent(sf::Sprite& sprite,

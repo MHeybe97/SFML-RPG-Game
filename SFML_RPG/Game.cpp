@@ -1,4 +1,5 @@
 /**\file Game.cpp*/
+#include "stdafx.h"
 #include "Game.h"
 
 //Static functions

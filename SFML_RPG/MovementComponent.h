@@ -1,20 +1,20 @@
 /**\file MovementComponent.h*/
 
 #pragma once
-#include <vector>
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
-
-#include "SFML\System.hpp"
-#include "SFML\Window.hpp"
-#include "SFML\Graphics.hpp"
-#include "SFML\Audio.hpp"
-#include "SFML\Network.hpp"
+//#include <vector>
+//#include <iostream>
+//#include <ctime>
+//#include <cstdlib>
+//#include <fstream>
+//#include <sstream>
+//#include <stack>
+//#include <map>
+//
+//#include "SFML\System.hpp"
+//#include "SFML\Window.hpp"
+//#include "SFML\Graphics.hpp"
+//#include "SFML\Audio.hpp"
+//#include "SFML\Network.hpp"
 
 enum movement_states {IDLE = 0, MOVING, MOVING_LEFT, MOVING_RIGHT, MOVING_UP, MOVING_DOWN};
 

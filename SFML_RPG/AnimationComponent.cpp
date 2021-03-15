@@ -1,4 +1,5 @@
 /**\file AnimationComponent.cpp*/
+#include "stdafx.h"
 #include "AnimationComponent.h"
 
 //Constructor

@@ -1,4 +1,5 @@
 /**\file SettingsState.cpp*/
+#include "stdafx.h"
 #include "SettingsState.h"
 
 
