@@ -11,7 +11,7 @@ class MainMenuState : public State
 {
 private:
 	//Variables
-	GraphicsSettings& gfxSettings;
+	
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background; //window background
 	sf::Font font; // button font
@@ -27,7 +27,7 @@ private:
 	void initButtons(); //initialise buttons
 
 public:
-	MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //contructor
+	MainMenuState(StateData* state_data); //contructor
 	virtual ~MainMenuState(); //destructor
 
 	//functions

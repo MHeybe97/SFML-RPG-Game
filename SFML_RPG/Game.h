@@ -10,6 +10,7 @@ private:
 
 	//Variables
 	GraphicsSettings gfxSettings;
+	StateData stateData;
 	sf::RenderWindow *window; //application window
 	sf::Event sfEvent; //sfml events
 	
@@ -22,11 +23,14 @@ private:
 
 	std::map<std::string, int> supportedKeys; //map for supported keys
 
+	float gridSize;
+
 	//Initialization
 	void initVariables(); 
 	void initGraphicsSettings();
 	void initWindow(); //initialising the window
 	void initKeys(); //initialising the window
+	void initStateData();
 	void initStates(); //initialising the window
 	
 

@@ -13,16 +13,17 @@ private:
 
 	Player* player; //player
 
-	TileMap map;
+	TileMap* tileMap;
 	//functions
 	void initKeybinds(); //initialise keybinds
 	void initFonts();
 	void initTextures();
 	void initPauseMenu();
 	void initPlayers();
+	void initTileMap();
 
 public:
-	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //constructor
+	GameState(StateData* state_data); //constructor
 	virtual ~GameState(); //destructor
 
 	//functions

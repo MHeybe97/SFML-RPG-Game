@@ -7,7 +7,7 @@ class SettingsState : public State
 {
 private:
 	//Variables
-	GraphicsSettings& gfxSettings;
+	
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background; //window background
 	sf::Font font; // button font
@@ -28,7 +28,7 @@ private:
 	void initText();
 
 public:
-	SettingsState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	SettingsState(StateData* state_data);
 	virtual ~SettingsState();
 
 	
