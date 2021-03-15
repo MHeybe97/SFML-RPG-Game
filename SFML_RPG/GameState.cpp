@@ -20,11 +20,6 @@ void GameState::initKeybinds()
 
 	ifs.close(); //close file
 
-	/*this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
-	this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
-	this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
-	this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
-	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");*/
 }
 
 void GameState::initFonts()
@@ -130,6 +125,8 @@ void GameState::render(sf::RenderTarget* target)
 {
 	if (!target) //if there is nothing on the target
 		target = this->window; //then set the target to the window
+
+	//this->map.render(*target);
 
 	this->player->render(*target); //render the player on the window
 

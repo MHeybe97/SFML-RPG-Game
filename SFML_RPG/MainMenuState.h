@@ -5,11 +5,13 @@
 #include "EditorState.h"
 #include "SettingsState.h"
 #include "Gui.h"
+#include "GraphicsSettings.h"
 
 class MainMenuState : public State
 {
 private:
 	//Variables
+	GraphicsSettings& gfxSettings;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background; //window background
 	sf::Font font; // button font
@@ -25,7 +27,7 @@ private:
 	void initButtons(); //initialise buttons
 
 public:
-	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //contructor
+	MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states); //contructor
 	virtual ~MainMenuState(); //destructor
 
 	//functions

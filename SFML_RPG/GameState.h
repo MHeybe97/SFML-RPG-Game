@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "PauseMenu.h"
+#include "TileMap.h"
 
 class GameState : public State
 {
@@ -12,6 +13,7 @@ private:
 
 	Player* player; //player
 
+	TileMap map;
 	//functions
 	void initKeybinds(); //initialise keybinds
 	void initFonts();

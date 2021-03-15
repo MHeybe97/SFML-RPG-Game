@@ -6,12 +6,14 @@
 class Game
 {
 private:
+
+
 	//Variables
+	GraphicsSettings gfxSettings;
 	sf::RenderWindow *window; //application window
 	sf::Event sfEvent; //sfml events
-	std::vector<sf::VideoMode> videoModes;
-	sf::ContextSettings windowSettings;
-	bool fullscreen;
+	
+	
 
 	sf::Clock dtClock; //clock for delta time
 	float dt; // delta time
@@ -22,6 +24,7 @@ private:
 
 	//Initialization
 	void initVariables(); 
+	void initGraphicsSettings();
 	void initWindow(); //initialising the window
 	void initKeys(); //initialising the window
 	void initStates(); //initialising the window
