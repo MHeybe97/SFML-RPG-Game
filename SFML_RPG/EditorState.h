@@ -4,6 +4,7 @@
 #include "Gui.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
+#include "GraphicsSettings.h"
 
 class State;
 class Gui;
@@ -15,16 +16,21 @@ class EditorState : public State
 private:
 	//Variables
 	sf::Font font; // button font
+	sf::Text cursorText;
 	PauseMenu* pmenu;
 	//Button* gamestate_btn;
 	std::map<std::string, gui::Button*> buttons; //button map
 	TileMap* tileMap;
+	sf::RectangleShape sidebar;
+	sf::IntRect textureRect;
 	sf::RectangleShape selectorRect;
+	gui::TextureSelector* textureSelector;
 
 	//functions
 	void initVariables();
 	void initBackground();
 	void initFonts(); //initialise fonts
+	void initText();
 	void initKeybinds(); //initialise keybinds
 	void initPauseMenu();
 	void initButtons(); //initialise buttons
@@ -42,7 +48,7 @@ public:
 
 	void updateButtons(); //update buttons in editor state
 	void updateEditorInput(const float& dt);
-	void updateGui();
+	void updateGui(const float& dt);
 	void updatePausedMenuButtons();
 	void update(const float& dt); //update editor state
 	void renderButtons(sf::RenderTarget& target); //render button to the screen
