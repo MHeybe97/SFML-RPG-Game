@@ -26,7 +26,7 @@ gui::Button::Button(float x, float y, float width, float height,
 	this->text.setCharacterSize(character_size); //set the character size
 	this->text.setPosition( 
 		this->shape.getPosition().x + (shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
-		this->shape.getPosition().y + (shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f
+		this->shape.getPosition().y
 	); //set the text on the button
 
 	this->textIdleColor = text_idle_color;
