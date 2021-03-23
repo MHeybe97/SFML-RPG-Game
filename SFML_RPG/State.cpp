@@ -54,16 +54,21 @@ void State::unpauseState()
 	this->paused = false;
 }
 
-void State::updateMousePositions()
+void State::updateMousePositions(sf::View* view)
 {
 	this->mousePosScreen = sf::Mouse::getPosition(); //the mouse position on the screen
 	this->mousePosWindow = sf::Mouse::getPosition(*this->window); //the mouse position on the window
+	if (view)
+		this->window->setView(*view);
+
 	this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window)); //mouse position on the view
 	this->mousePosGrid =
 		sf::Vector2u(
 			static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
 			static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
 		);
+
+	this->window->setView(this->window->getDefaultView());
 }
 
 void State::updateKeytime(const float& dt)

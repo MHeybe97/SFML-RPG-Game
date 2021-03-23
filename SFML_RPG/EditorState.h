@@ -15,19 +15,31 @@ class EditorState : public State
 {
 private:
 	//Variables
+	sf::View view;
+	float cameraSpeed;
+
 	sf::Font font; // button font
 	sf::Text cursorText;
 	PauseMenu* pmenu;
+
 	//Button* gamestate_btn;
 	std::map<std::string, gui::Button*> buttons; //button map
+
 	TileMap* tileMap;
+
 	sf::RectangleShape sidebar;
+
 	sf::IntRect textureRect;
 	sf::RectangleShape selectorRect;
+
 	gui::TextureSelector* textureSelector;
+
+	bool collision;
+	short type;
 
 	//functions
 	void initVariables();
+	void initView();
 	void initBackground();
 	void initFonts(); //initialise fonts
 	void initText();
