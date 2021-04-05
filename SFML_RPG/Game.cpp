@@ -142,7 +142,7 @@ void Game::update()
 {
 	this->updateSFMLEvents(); //update sfml events
 
-	if (!this->states.empty()) //if state is not empty
+	if (!this->states.empty() && this->window->hasFocus()) //if state is not empty
 	{
 		this->states.top()->update(this->dt); //update the state
 		{

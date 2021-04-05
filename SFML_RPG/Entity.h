@@ -29,11 +29,21 @@ public:
 	void createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
 	void createAnimationComponent(sf::Texture& texture_sheet);
 
-	//functions
-	virtual void setPosition(const float x, const float y);
-	virtual void move(const float x, const float y, const float& dt); //move the entity
+	//Accessors
+	virtual const sf::Vector2f& getPosition() const;
+	virtual const sf::Vector2u getGridPosition(const unsigned gridSizeU) const;
+	virtual const sf::FloatRect getGlobalBounds() const;
 
-	virtual void update(const float& dt); //update entity
-	virtual void render(sf::RenderTarget& target); //render entity
+	//Modifiers
+	virtual void setPosition(const float x, const float y);
+
+	//functions
+	virtual void move(const float x, const float y, const float& dt); //move the entity
+	virtual void stopVelocity();
+	virtual void stopVelocityX();
+	virtual void stopVelocityY();
+
+	virtual void update(const float& dt) = 0; //update entity
+	virtual void render(sf::RenderTarget& target) = 0; //render entity
 };
 
