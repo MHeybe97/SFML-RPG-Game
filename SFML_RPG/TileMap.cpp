@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "TileMap.h"
 
-
+//github test
 void TileMap::clear()
 {
 	for (int x = 0; x < this->maxSizeWorldGrid.x; x++)
