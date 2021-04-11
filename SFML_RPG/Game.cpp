@@ -61,11 +61,6 @@ void Game::initKeys()
 
 	ifs.close();
 
-	/*this->supportedKeys["Escape"] = sf::Keyboard::Key::Escape;
-	this->supportedKeys["A"] = sf::Keyboard::Key::A;
-	this->supportedKeys["D"] = sf::Keyboard::Key::D;
-	this->supportedKeys["W"] = sf::Keyboard::Key::W;
-	this->supportedKeys["S"] = sf::Keyboard::Key::S;*/
 
 	//for debugging remove later
 	for (auto i : this->supportedKeys)
@@ -142,15 +137,18 @@ void Game::update()
 {
 	this->updateSFMLEvents(); //update sfml events
 
-	if (!this->states.empty() && this->window->hasFocus()) //if state is not empty
+	if (!this->states.empty()) //if state is not empty
 	{
-		this->states.top()->update(this->dt); //update the state
+		if (this->window->hasFocus())
 		{
-			if (this->states.top()->getQuit()) //quit the state
+			this->states.top()->update(this->dt); //update the state
 			{
-				this->states.top()->endState(); //the state at the top
-				delete this->states.top(); //delete state at the top of the stack
-				this->states.pop(); //pop the state
+				if (this->states.top()->getQuit()) //quit the state
+				{
+					this->states.top()->endState(); //the state at the top
+					delete this->states.top(); //delete state at the top of the stack
+					this->states.pop(); //pop the state
+				}
 			}
 		}
 	}

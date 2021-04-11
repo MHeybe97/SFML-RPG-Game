@@ -153,7 +153,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height,
 		sf::Color(255, 255, 250, 200), sf::Color(255, 255, 250, 255), sf::Color(20, 20, 20, 50)
 	);
 
-	for (size_t i = 0; i < nrOfElements; i++)
+	for (unsigned i = 0; i < nrOfElements; i++)
 	{
 		this->list.push_back(
 			new gui::Button(
@@ -269,11 +269,11 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 
 	if (this->sheet.getGlobalBounds().width > this->bounds.getGlobalBounds().width)
 	{
-		this->sheet.setTextureRect(sf::IntRect(0, 0, this->bounds.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
+		this->sheet.setTextureRect(sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
 	}
 	if (this->sheet.getGlobalBounds().height > this->bounds.getGlobalBounds().height)
 	{
-		this->sheet.setTextureRect(sf::IntRect(0, 0, this->bounds.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
+		this->sheet.setTextureRect(sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
 	}
 
 	this->selector.setPosition(x + offset, y);
@@ -358,7 +358,7 @@ void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow, const floa
 
 			//update texture rectangle
 			this->textureRect.left = static_cast<int>(this->selector.getPosition().x - this->bounds.getPosition().x);
-			this->textureRect.top = static_cast<int>(this->selector.getPosition().y) - this->bounds.getPosition().y;
+			this->textureRect.top = static_cast<int>(this->selector.getPosition().y - this->bounds.getPosition().y);
 		}
 	}
 

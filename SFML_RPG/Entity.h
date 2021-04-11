@@ -5,12 +5,16 @@
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
 
+class HitBoxComponent;
+class MovementComponent;
+class AnimationComponent;
+
 class Entity
 {
 private:
 	void initVariables();
 protected:
-	//sf::Texture* texture;
+	
 	sf::Sprite sprite;
 
 	HitBoxComponent* hitboxComponent;
@@ -31,7 +35,7 @@ public:
 
 	//Accessors
 	virtual const sf::Vector2f& getPosition() const;
-	virtual const sf::Vector2u getGridPosition(const unsigned gridSizeU) const;
+	virtual const sf::Vector2i getGridPosition(const int gridSizeI) const;
 	virtual const sf::FloatRect getGlobalBounds() const;
 	virtual const sf::FloatRect getNextPositionBounds(const float& dt) const;
 
