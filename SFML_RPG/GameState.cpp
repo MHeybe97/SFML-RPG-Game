@@ -155,7 +155,7 @@ void GameState::updatePausedMenuButtons()
 void GameState::updateTileMap(const float & dt)
 {
 	this->tileMap->update();
-	this->tileMap->updateCollision(this->player);
+	this->tileMap->updateCollision(this->player, dt);
 }
 
 void GameState::update(const float& dt)
@@ -170,9 +170,9 @@ void GameState::update(const float& dt)
 
 		this->updatePlayerInput(dt); //update input in game state
 
-		this->player->update(dt); //update player
-
 		this->updateTileMap(dt);
+
+		this->player->update(dt); //update player
 	}
 	else //paused update
 	{
