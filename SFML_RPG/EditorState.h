@@ -16,7 +16,7 @@ class EditorState : public State
 private:
 	//Variables
 	sf::View view;
-	float cameraSpeed;
+	
 
 	sf::Font font; // button font
 	sf::Text cursorText;
@@ -34,8 +34,10 @@ private:
 
 	gui::TextureSelector* textureSelector;
 
+	float cameraSpeed;
 	bool collision;
 	short type;
+	int layer;
 
 	//functions
 	void initVariables();

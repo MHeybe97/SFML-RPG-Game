@@ -38,7 +38,7 @@ protected:
 	sf::Vector2i mousePosScreen; //mouse position on the screen
 	sf::Vector2i mousePosWindow; //mouse position on the window
 	sf::Vector2f mousePosView; //mouse position on the view
-	sf::Vector2u mousePosGrid;
+	sf::Vector2i mousePosGrid;
 
 	//Resources
 	std::map<sf::String, sf::Texture> textures;

@@ -2,7 +2,7 @@
 #pragma once
 #include "Gui.h"
 
-enum TileType {DEFAULT = 0, DAMAGING};
+enum TileType {DEFAULT = 0, DAMAGING, DOODAD};
 
 class Tile
 {
@@ -24,6 +24,7 @@ public:
 	const sf::FloatRect getGlobalBounds() const;
 	const bool intersects(const sf::FloatRect bounds) const;
 	const std::string getAsString() const;
+	const short& getType() const;
 
 	//Functions
 	void update();
