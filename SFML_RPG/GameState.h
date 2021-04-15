@@ -5,10 +5,13 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "GraphicsSettings.h"
+#include "PlayerGUI.h"
 
 class PausMenu;
 class Player;
+class PlayerGUI;
 class TileMap;
+
 class sf::View;
 class sf::Font;
 class sf::RenderTexture;
@@ -22,11 +25,16 @@ private:
 
 	sf::Font font;
 	PauseMenu* pmenu;
+	sf::Text gameOverText;
 
+	//Player
 	Player* player; //player
+	PlayerGUI* playerGUI;
 	sf::Texture texture;
 
+	//TileMap
 	TileMap* tileMap;
+
 
 	//functions
 	void initDeferredRender();
@@ -36,6 +44,7 @@ private:
 	void initTextures();
 	void initPauseMenu();
 	void initPlayers();
+	void initPlayerGUI();
 	void initTileMap();
 
 public:
@@ -47,6 +56,7 @@ public:
 	void updateView(const float& dt);
 	void updateInput(const float& dt);
 	void updatePlayerInput(const float& dt); //update player input
+	void updatePlayerGUI(const float& dt);
 	void updatePausedMenuButtons();
 	void updateTileMap(const float& dt);
 	void update(const float& dt); //update gamestate

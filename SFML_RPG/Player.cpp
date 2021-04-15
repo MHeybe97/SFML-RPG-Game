@@ -26,7 +26,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->createHitboxComponent(this->sprite, 86.f, 67.f, 86.f, 111.f);
 	this->createMovementComponent(350.f, 1500.f, 500.f);
 	this->createAnimationComponent(texture_sheet);
-	this->createAttributeComponent(0);
+	this->createAttributeComponent(1);
 
 	this->animationComponent->addAnimation("IDLE", 0.4f, 0, 0, 13, 0, 192, 192);
 	this->animationComponent->addAnimation("WALK", 3.f, 0, 1, 11, 1, 192, 192);
@@ -38,7 +38,53 @@ Player::~Player()
 {
 }
 
+//Accessors
+AttributeComponent * Player::getAttributeComponent()
+{
+	return this->attributeComponent;
+}
+
+
 //Functions
+void Player::loseHP(const int hp)
+{
+	this->attributeComponent->hp -= hp;
+
+	if (this->attributeComponent->hp < 0)
+		this->attributeComponent->hp = 0;
+}
+
+void Player::gainHP(const int hp)
+{
+	this->attributeComponent->hp += hp;
+
+	if (this->attributeComponent->hp > this->attributeComponent->hpMax)
+		this->attributeComponent->hp = this->attributeComponent->hpMax;
+}
+
+const bool Player::isAlive() const
+{
+	if (this->attributeComponent)
+	{
+		return this->attributeComponent->isAlive();
+	}
+	return false;
+}
+
+
+void Player::loseEXP(const unsigned exp)
+{
+	this->attributeComponent->exp -= exp;
+
+	if (this->attributeComponent->exp < 0)
+		this->attributeComponent->exp = 0;
+}
+
+void Player::gainEXP(const unsigned exp)
+{
+	this->attributeComponent->gainEXP(exp);
+}
+
 void Player::updateAttack()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -115,9 +161,9 @@ void Player::update(const float & dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		this->attributeComponent->gainEXP(20);
-
-	system("cls");
-	std::cout << this->attributeComponent->debugPrint() << "\n";
+	
+	/*system("cls");
+	std::cout << this->attributeComponent->debugPrint() << "\n";*/
 
 	this->movementComponent->update(dt);
 

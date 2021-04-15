@@ -1,3 +1,4 @@
+/**\file AttributeComponent.h*/
 #pragma once
 class AttributeComponent
 {
@@ -33,6 +34,7 @@ public:
 	//Functions
 	std::string debugPrint() const;
 	void gainEXP(const unsigned exp);
+	const bool isAlive() const;
 	void updateStats(const bool reset);
 	void updateLevel();
 

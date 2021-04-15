@@ -1,3 +1,4 @@
+/**\file AttributeComponent.cpp*/
 #include "stdafx.h"
 #include "AttributeComponent.h"
 
@@ -6,7 +7,7 @@ AttributeComponent::AttributeComponent(unsigned level)
 {
 	this->level = level;
 	this->exp = 0;
-	this->expNext = static_cast<unsigned>((50 / 3) * (pow(this->level, 3) - 6 * pow(this->level, 2) + (this->level * 17) - 12));
+	this->expNext = static_cast<unsigned>((50 / 3) * (pow(this->level + 1, 3) - 6 * pow(this->level + 1, 2) + ((this->level + 1) * 17) - 12));
 	this->attributePoints = 2;
 
 	this->vitality = 1;
@@ -42,6 +43,11 @@ void AttributeComponent::gainEXP(const unsigned exp)
 	this->exp += exp;
 
 	this->updateLevel();
+}
+
+const bool AttributeComponent::isAlive() const
+{
+	return this->hp <= 0;
 }
 
 //Functions

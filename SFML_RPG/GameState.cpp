@@ -86,6 +86,20 @@ void GameState::initPlayers()
 	this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 }
 
+void GameState::initPlayerGUI()
+{
+	this->playerGUI = new PlayerGUI(this->player);
+
+	this->gameOverText.setFont(this->font);
+	this->gameOverText.setCharacterSize(60);
+	this->gameOverText.setFillColor(sf::Color::Red);
+	this->gameOverText.setString("GAME OVER! PRESS ESC & QUIT");
+	this->gameOverText.setPosition(
+		this->window->getSize().x / 2.f - this->gameOverText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->gameOverText.getGlobalBounds().height / 2.f
+	);
+}
+
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap(this->stateData->gridSize, 20, 20, "Resources/Images/Tiles/tilesheet1.png");
@@ -102,7 +116,9 @@ GameState::GameState(StateData* state_data)
 	this->initFonts();
 	this->initTextures();
 	this->initPauseMenu();
+
 	this->initPlayers();
+	this->initPlayerGUI();
 	this->initTileMap();
 }
 
@@ -110,6 +126,7 @@ GameState::~GameState()
 {
 	delete this->pmenu;
 	delete this->player;
+	delete this->playerGUI;
 	delete this->tileMap;
 }
 
@@ -139,11 +156,23 @@ void GameState::updatePlayerInput(const float & dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT")))) //move player right
 		this->player->move(1.f, 0.f, dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) //move player up
+	{
 		this->player->move(0.f, -1.f, dt);
+		if (this->getKeytime())
+			this->player->gainHP(1);
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) //move pplayer down
+	{
 		this->player->move(0.f, 1.f, dt);
-
+		if (this->getKeytime())
+			this->player->loseHP(1);
+	}
 	
+}
+
+void GameState::updatePlayerGUI(const float & dt)
+{
+	this->playerGUI->update(dt);
 }
 
 void GameState::updatePausedMenuButtons()
@@ -164,7 +193,7 @@ void GameState::update(const float& dt)
 	this->updateKeytime(dt);
 	this->updateInput(dt);
 
-	if (!this->paused) //unpaused update
+	if (!this->paused && !this->player->isAlive()) //unpaused update
 	{
 		this->updateView(dt);
 
@@ -173,6 +202,8 @@ void GameState::update(const float& dt)
 		this->updateTileMap(dt);
 
 		this->player->update(dt); //update player
+
+		this->playerGUI->update(dt);
 	}
 	else //paused update
 	{
@@ -196,13 +227,23 @@ void GameState::render(sf::RenderTarget* target)
 
 	this->tileMap->renderDeffered(this->renderTexture);
 
+	//Render GUI
+	this->renderTexture.setView(this->renderTexture.getDefaultView());
+	this->playerGUI->render(this->renderTexture);
+
+	//Game Over Screen
+	if (this->player->isAlive())
+		this->renderTexture.draw(this->gameOverText);
+
 	if (this->paused) //pause menu render
 	{
-		this->renderTexture.setView(this->renderTexture.getDefaultView());
+		//this->renderTexture.setView(this->renderTexture.getDefaultView());
 		this->pmenu->render(this->renderTexture);
 	}
 
+	
+
 	this->renderTexture.display();
-	this->renderSprite.setTexture(this->renderTexture.getTexture());
+	//this->renderSprite.setTexture(this->renderTexture.getTexture());
 	target->draw(this->renderSprite);
 }

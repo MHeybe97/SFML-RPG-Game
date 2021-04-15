@@ -16,7 +16,16 @@ public:
 	Player(float x, float y, sf::Texture& texture_sheet);
 	virtual ~Player();
 
+	//Accessors
+	AttributeComponent* getAttributeComponent();
+
 	//Functions
+	void loseHP(const int hp);
+	void gainHP(const int hp);
+	const bool isAlive() const;
+	void loseEXP(const unsigned exp);
+	void gainEXP(const unsigned exp);
+
 	void updateAttack();
 	void updateAnimations(const float dt);
 	virtual void update(const float& dt);
