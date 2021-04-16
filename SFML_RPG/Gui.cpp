@@ -2,6 +2,26 @@
 #include "stdafx.h"
 #include "Gui.h"
 
+const float gui::p2pX(const float perc, const sf::VideoMode& vm)
+{
+	//converts a percentage value to pixels relative to the current resolution in x-axis
+	//param float perc The percentage value
+	//return float The calculated pixel value
+	return std::floor(static_cast<float>(vm.width) * (perc / 100.f));
+}
+
+const float gui::p2pY(const float perc, const sf::VideoMode& vm)
+{
+	//converts a percentage value to pixels relative to the current resolution in y-axis
+	//param float perc The percentage value
+	//return float The calculated pixel value
+	return std::floor(static_cast<float>(vm.height) * (perc / 100.f));
+}
+
+const unsigned gui::calcCharSize(const sf::VideoMode& vm)
+{
+	return static_cast<unsigned>((vm.width + vm.height) / 60);
+}
 
 gui::Button::Button(float x, float y, float width, float height,
 	sf::Font* font, std::string text, unsigned character_size,

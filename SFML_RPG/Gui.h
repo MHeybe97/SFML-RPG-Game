@@ -15,6 +15,11 @@ enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE}; //enum for button state
 
 namespace gui
 {
+	const float p2pX(const float perc, const sf::VideoMode& vm);
+	const float p2pY(const float perc, const sf::VideoMode& vm);
+	const unsigned calcCharSize( const sf::VideoMode& vm);
+
+
 	class Button
 	{
 	private:

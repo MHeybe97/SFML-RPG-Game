@@ -55,18 +55,20 @@ void SettingsState::initKeybinds()
 
 void SettingsState::initGui()
 {
-	
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
 	//Quit Game Button
 	this->buttons["BACK"] = new gui::Button(
-		560.f, 520.f, 150.f, 50.f,
-		&this->font, "Back", 20,
+		gui::p2pX(40.9f, vm), gui::p2pY(67.7f, vm),
+		gui::p2pX(11.f, vm), gui::p2pY(6.5f, vm),
+		&this->font, "Back", gui::calcCharSize(vm),
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
 	this->buttons["APPLY"] = new gui::Button(
-		860.f, 520.f, 150.f, 50.f,
-		&this->font, "Apply", 20,
+		gui::p2pX(62.9f, vm), gui::p2pY(67.7f, vm),
+		gui::p2pX(11.f, vm), gui::p2pY(6.5f, vm),
+		&this->font, "Apply", gui::calcCharSize(vm),
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
@@ -75,7 +77,10 @@ void SettingsState::initGui()
 	{
 		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 	}
-	this->dropDownLists["RESOLUTION"] = new gui::DropDownList(800, 250, 200, 50, font, modes_str.data(), modes_str.size());
+	this->dropDownLists["RESOLUTION"] = new gui::DropDownList(
+		gui::p2pX(58.5f, vm), gui::p2pY(32.5f, vm),
+		gui::p2pX(14.64f, vm), gui::p2pY(6.5f, vm),
+		font, modes_str.data(), modes_str.size());
 }
 
 void SettingsState::initText()

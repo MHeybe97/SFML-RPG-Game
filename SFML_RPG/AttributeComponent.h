@@ -6,10 +6,10 @@ private:
 
 public:
 	//Leveling 
-	unsigned level;
-	unsigned exp;
-	unsigned expNext;
-	unsigned attributePoints;
+	int level;
+	int exp;
+	int expNext;
+	int attributePoints;
 	
 	//Attributes
 	int vitality;
@@ -28,12 +28,12 @@ public:
 	int luck;
 
 	//Con & Dest
-	AttributeComponent(unsigned level);
+	AttributeComponent(int level);
 	virtual ~AttributeComponent();
 
 	//Functions
 	std::string debugPrint() const;
-	void gainEXP(const unsigned exp);
+	void gainEXP(const int exp);
 	const bool isAlive() const;
 	void updateStats(const bool reset);
 	void updateLevel();

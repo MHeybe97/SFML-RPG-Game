@@ -1,6 +1,7 @@
 /**\file State.h*/
 #pragma once
 #include "Player.h"
+#include "GraphicsSettings.h"
 
 class Player;
 class GraphicsSettings;

@@ -23,8 +23,8 @@ public:
 	void loseHP(const int hp);
 	void gainHP(const int hp);
 	const bool isAlive() const;
-	void loseEXP(const unsigned exp);
-	void gainEXP(const unsigned exp);
+	void loseEXP(const int exp);
+	void gainEXP(const int exp);
 
 	void updateAttack();
 	void updateAnimations(const float dt);
