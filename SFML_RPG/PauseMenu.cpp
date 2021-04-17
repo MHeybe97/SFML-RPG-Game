@@ -4,38 +4,39 @@
 
 
 
-PauseMenu::PauseMenu(sf::RenderWindow& window, sf::Font& font)
+PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font)
 	: font(font)
 {
 	//Init background
 	this->background.setSize(
 		sf::Vector2f(
-		static_cast<float>(window.getSize().x), 
-		static_cast<float>(window.getSize().y))
+		static_cast<float>(vm.width), 
+		static_cast<float>(vm.height)
+		)
 	);
 	this->background.setFillColor(sf::Color(20, 20, 20, 100));
 
 	//Init container
 	this->container.setSize(
 		sf::Vector2f(
-		static_cast<float>(window.getSize().x) / 4.f, 
-		static_cast<float>(window.getSize().y) - 100.f)
+		static_cast<float>(vm.width) / 4.f, 
+		static_cast<float>(vm.height) - gui::p2pY(13.f, vm)
+		)
 	);
 	this->container.setFillColor(sf::Color(20, 20, 20, 100));
 	this->container.setPosition(
-		static_cast<float>(window.getSize().x) / 2.f - this->container.getSize().x / 2.f,
+		static_cast<float>(vm.width) / 2.f - this->container.getSize().x / 2.f,
 		30.f
 	);
 
 	//Init text
 	this->manuText.setFont(font);
 	this->manuText.setFillColor(sf::Color(255, 255, 255, 200));
-	this->manuText.setCharacterSize(30);
+	this->manuText.setCharacterSize(gui::calcCharSize(vm));
 	this->manuText.setString("PAUSED");
 	this->manuText.setPosition(
 		this->container.getPosition().x + this->container.getSize().x / 2.f - this->manuText.getGlobalBounds().width / 2.f, 
-		this->container.getPosition().y + 20.f
-	
+		this->container.getPosition().y + gui::p2pY(2.6f, vm)
 	);
 }
 
@@ -63,10 +64,16 @@ const bool PauseMenu::isButtonPressed(const std::string key)
 	return this->buttons[key]->isPressed();
 }
 
-void PauseMenu::addButton(const std::string key, const float y, const unsigned char_Size, const std::string text)
+void PauseMenu::addButton(
+	const std::string key, 
+	const float y,
+	const float width,
+	const float height,
+	const unsigned char_Size, 
+	const std::string text)
 {
-	float width = 250.f;
-	float height = 50.f;
+	/*float width = 250.f;
+	float height = 50.f;*/
 	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
 
 	this->buttons[key] = new gui::Button(

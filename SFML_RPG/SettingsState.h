@@ -21,11 +21,11 @@ private:
 
 	//functions
 	void initVariables();
-	void initBackground();
 	void initFonts(); //initialise fonts
 	void initKeybinds(); //initialise keybinds
 	void initGui(); //initialise buttons
-	void initText();
+	void resetGui();
+	
 
 public:
 	SettingsState(StateData* state_data);

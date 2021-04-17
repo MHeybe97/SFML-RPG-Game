@@ -21,10 +21,10 @@ private:
 
 	//functions
 	void initVariables();
-	void initBackground();
 	void initFonts(); //initialise fonts
 	void initKeybinds(); //initialise keybinds
-	void initButtons(); //initialise buttons
+	void initGui(); //initialise buttons
+	void resetGui();
 
 public:
 	MainMenuState(StateData* state_data); //contructor

@@ -67,7 +67,7 @@ void GameState::initFonts()
 
 void GameState::initTextures()
 {
-	if (!this->textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET.png"))
+	if (!this->textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET2.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE!";
 	}
@@ -76,9 +76,11 @@ void GameState::initTextures()
 
 void GameState::initPauseMenu()
 {
-	this->pmenu = new PauseMenu(*this->window, this->font);
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
-	this->pmenu->addButton("QUIT", 550.f, "Quit");
+	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
+
+	this->pmenu->addButton("QUIT", gui::p2pY(71.6f, vm), gui::p2pX(11.f, vm), gui::p2pY(6.5f, vm), gui::calcCharSize(vm), "Quit");
 }
 
 void GameState::initPlayers()
@@ -88,7 +90,7 @@ void GameState::initPlayers()
 
 void GameState::initPlayerGUI()
 {
-	this->playerGUI = new PlayerGUI(this->player);
+	this->playerGUI = new PlayerGUI(this->player, this->stateData->gfxSettings->resolution);
 
 	this->gameOverText.setFont(this->font);
 	this->gameOverText.setCharacterSize(60);
@@ -102,7 +104,7 @@ void GameState::initPlayerGUI()
 
 void GameState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 20, 20, "Resources/Images/Tiles/tilesheet1.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Resources/Images/Tiles/tilesheet1.png");
 	this->tileMap->loadFromFile("text.slmp");
 }
 
@@ -132,7 +134,10 @@ GameState::~GameState()
 
 void GameState::updateView(const float & dt)
 {
-	this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
+	this->view.setCenter(
+		std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 5.f), 
+		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 5.f)
+	);
 }
 
 void GameState::updateInput(const float & dt)
@@ -221,9 +226,9 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->view);
-	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
+	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), false);
 
-	this->player->render(this->renderTexture); //render the player on the window
+	this->player->render(this->renderTexture, false); //render the player on the window
 
 	this->tileMap->renderDeffered(this->renderTexture);
 

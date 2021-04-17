@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Player.h"
+#include "Gui.h"
 
 class Player;
 class sf::RectangleShape;
@@ -11,6 +12,7 @@ class PlayerGUI
 private:
 	Player* player;
 	sf::Font font;
+	sf::VideoMode vm;
 
 	//Level Bar
 	std::string levelBarString;
@@ -38,7 +40,7 @@ private:
 	void initHPBar();
 
 public:
-	PlayerGUI(Player* player);
+	PlayerGUI(Player* player, sf::VideoMode& vm);
 	virtual ~PlayerGUI();
 
 	//Accessors

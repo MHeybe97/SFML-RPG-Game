@@ -9,24 +9,6 @@ void SettingsState::initVariables()
 	this->modes = sf::VideoMode::getFullscreenModes();
 }
 
-void SettingsState::initBackground()
-{
-	this->background.setSize(
-		sf::Vector2f
-		(
-			static_cast<float>(this->window->getSize().x),
-			static_cast<float>(this->window->getSize().y)
-		)
-	);
-
-	if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg2.png"))
-	{
-		throw"ERROR::Main_Menu_State::FAILED_TO_BACKGROUND_TEXTURE";
-	}
-
-	this->background.setTexture(&this->backgroundTexture);
-}
-
 void SettingsState::initFonts()
 {
 	if (!this->font.loadFromFile("Fonts/KurriIslandItaPersonalBold-d95qR.ttf")) //load Kurri Island font from Fonts file
@@ -57,7 +39,22 @@ void SettingsState::initGui()
 {
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
-	//Quit Game Button
+	this->background.setSize(
+		sf::Vector2f
+		(
+			static_cast<float>(vm.width),
+			static_cast<float>(vm.height)
+		)
+	);
+
+	if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg2.png"))
+	{
+		throw"ERROR::Main_Menu_State::FAILED_TO_BACKGROUND_TEXTURE";
+	}
+
+	this->background.setTexture(&this->backgroundTexture);
+
+	
 	this->buttons["BACK"] = new gui::Button(
 		gui::p2pX(40.9f, vm), gui::p2pY(67.7f, vm),
 		gui::p2pX(11.f, vm), gui::p2pY(6.5f, vm),
@@ -81,13 +78,10 @@ void SettingsState::initGui()
 		gui::p2pX(58.5f, vm), gui::p2pY(32.5f, vm),
 		gui::p2pX(14.64f, vm), gui::p2pY(6.5f, vm),
 		font, modes_str.data(), modes_str.size());
-}
 
-void SettingsState::initText()
-{
 	this->optionText.setFont(this->font);
-	this->optionText.setPosition(sf::Vector2f(100.f, 270.f));
-	this->optionText.setCharacterSize(30);
+	this->optionText.setPosition(sf::Vector2f(gui::p2pX(7.3f, vm), gui::p2pY(35.1f, vm)));
+	this->optionText.setCharacterSize(gui::calcCharSize(vm, 80));
 	this->optionText.setFillColor(sf::Color(255, 255, 255, 200));
 
 	this->optionText.setString(
@@ -95,15 +89,33 @@ void SettingsState::initText()
 	);
 }
 
+void SettingsState::resetGui()
+{
+	auto it = this->buttons.begin();
+	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
+	{
+		delete it->second;
+	}
+	this->buttons.clear();
+
+	auto it2 = this->dropDownLists.begin();
+	for (it2 = this->dropDownLists.begin(); it2 != this->dropDownLists.end(); ++it2)
+	{
+		delete it2->second;
+	}
+	this->dropDownLists.clear();
+
+	this->initGui();
+}
+
 SettingsState::SettingsState(StateData* state_data)
 	: State(state_data)
 {
 	this->initVariables();
-	this->initBackground();
 	this->initFonts(); //initialise fonts
 	this->initKeybinds(); //initialise keybinds
 	this->initGui(); //initialise buttons
-	this->initText();
+
 }
 
 
@@ -152,8 +164,10 @@ void SettingsState::updateGui(const float & dt)
 	{
 		//Test Remove later
 		this->stateData->gfxSettings->resolution = this->modes[this->dropDownLists["RESOLUTION"]->getActiveElementId()];
+
 		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
-			
+
+		this->resetGui();
 	}
 
 	// Dropdown lists

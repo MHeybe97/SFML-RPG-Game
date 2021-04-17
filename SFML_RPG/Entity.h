@@ -53,6 +53,6 @@ public:
 	virtual void stopVelocityY();
 
 	virtual void update(const float& dt) = 0; //update entity
-	virtual void render(sf::RenderTarget& target) = 0; //render entity
+	virtual void render(sf::RenderTarget& target, const bool show_hitbox) = 0; //render entity
 };
 
