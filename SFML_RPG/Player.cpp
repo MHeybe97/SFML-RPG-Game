@@ -24,7 +24,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->setPosition(x, y);
 
 	this->createHitboxComponent(this->sprite, 10.f, 5.f, 45.f, 55.f);
-	this->createMovementComponent(200, 1500.f, 900.f);
+	this->createMovementComponent(300, 1500.f, 900.f);
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
 
@@ -164,10 +164,16 @@ void Player::update(const float & dt)
 	this->hitboxComponent->update();
 }
 
-void Player::render(sf::RenderTarget & target, const bool show_hitbox)
+void Player::render(sf::RenderTarget & target, sf::Shader* shader, const bool show_hitbox)
 {
-	target.draw(this->sprite); 
-
+	if (shader)
+	{
+		shader->setUniform("hasTexture", true);
+		shader->setUniform("light", this->getCenter());
+		target.draw(this->sprite, shader);
+	}
+	else
+		target.draw(this->sprite);
 
 	if (show_hitbox)
 		this->hitboxComponent->render(target);

@@ -25,6 +25,7 @@ private:
 
 	sf::Font font;
 	PauseMenu* pmenu;
+	sf::Shader core_shader;
 	sf::Text gameOverText;
 
 	//Player
@@ -43,6 +44,7 @@ private:
 	void initFonts();
 	void initTextures();
 	void initPauseMenu();
+	void initShaders();
 	void initPlayers();
 	void initPlayerGUI();
 	void initTileMap();
