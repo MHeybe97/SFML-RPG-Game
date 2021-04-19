@@ -31,11 +31,15 @@ private:
 
 public:
 	TileMap(float gridSize, int width, int height, std::string texture_file);
+	TileMap(const std::string file_name);
 	virtual ~TileMap();
 
 	//Accessors 
+	const bool tileEmpty(const int x, const int y, const int z) const;
 	const sf::Texture* getTileSheet() const;
 	const int getLayerSize(const int x, const int y, const int z) const;
+	const sf::Vector2i& getMaxSizeGrid() const;
+	const sf::Vector2f& getMaxSize() const;
 
 	//Functions 
 	void saveToFile(const std::string file_name);

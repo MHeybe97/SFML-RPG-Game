@@ -11,7 +11,7 @@ void Entity::initVariables()
 	this->hitboxComponent = NULL;
 	this->movementComponent = NULL;
 	this->animationComponent = NULL;
-	//this->movementSpeed = 100.f; //set entity speed
+	this->attributeComponent = NULL;
 }
 
 Entity::Entity()
