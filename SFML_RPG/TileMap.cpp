@@ -101,7 +101,7 @@ const bool TileMap::tileEmpty(const int x, const int y, const int z) const
 		return this->map[x][y][z].empty();
 	}
 
-	throw("ERROR::TILEMAP::TILEEMPTY::TRYING TO ACCESS OUT OF BOUNDS TILE");
+	return false;
 }
 
 const sf::Texture * TileMap::getTileSheet() const
@@ -208,6 +208,7 @@ void TileMap::loadFromFile(const std::string file_name)
 		unsigned trY = 0;
 		bool collision = false;
 		short type = 0;
+
 		//Basics
 		in_file >> size.x >> size.y >> gridSize >> layers >> texture_file;
 

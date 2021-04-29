@@ -77,11 +77,11 @@ const bool AttributeComponent::isAlive() const
 //Functions
 void AttributeComponent::updateStats(const bool reset)
 {
-	this->hpMax       = this->vitality * 9 + this->vitality + this->strength / 2 + this->intelligence / 5;
-	this->damageMin   = this->strength * 2 + this->strength / 4 + this->intelligence / 5;
-	this->damageMax   = this->strength * 2 + this->strength / 2 + this->intelligence / 5;
-	this->accuracy    = this->dexterity * 5 + this->dexterity / 2 + this->intelligence / 5;
-	this->defence     = this->agility * 2 + this->agility / 4 + this->intelligence / 5;
+	this->hpMax       = this->vitality     * 9 + this->vitality + this->strength / 2 + this->intelligence / 5;
+	this->damageMin   = this->strength     * 2 + this->strength                  / 4 + this->intelligence / 5;
+	this->damageMax   = this->strength     * 2 + this->strength                  / 2 + this->intelligence / 5;
+	this->accuracy    = this->dexterity    * 5 + this->dexterity                 / 2 + this->intelligence / 5;
+	this->defence     = this->agility      * 2 + this->agility                   / 4 + this->intelligence / 5;
 	this->luck        = this->intelligence * 2 + this->intelligence / 5;
 	
 

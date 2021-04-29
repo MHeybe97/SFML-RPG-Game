@@ -1,6 +1,7 @@
 /**\file Player.h*/
 #pragma once
 #include "Entity.h"
+#include "Sword.h"
 
 class Entity;
 
@@ -9,8 +10,8 @@ class Player : public Entity
 private:
 	//variables
 	bool attacking;
-	sf::Texture weapon_texture;
-	sf::Sprite weapon_sprite;
+	Sword sword;
+	
 
 	//Initializer functions
 	void initVariables();
@@ -31,7 +32,7 @@ public:
 
 	void updateAttack();
 	void updateAnimations(const float dt);
-	virtual void update(const float& dt, sf::Vector2f& mouse_Pos_View);
+	virtual void update(const float& dt, sf::Vector2f& mouse_pos_view);
 
 	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const bool show_hitbox = false);
 };

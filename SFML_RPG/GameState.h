@@ -6,6 +6,7 @@
 #include "TileMap.h"
 #include "GraphicsSettings.h"
 #include "PlayerGUI.h"
+#include "Sword.h"
 
 class PausMenu;
 class Player;

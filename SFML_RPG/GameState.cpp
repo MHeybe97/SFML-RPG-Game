@@ -18,6 +18,8 @@ void GameState::initDeferredRender()
 			this->stateData->gfxSettings->resolution.height
 		)
 	);
+
+	
 }
 
 void GameState::initView()
@@ -112,8 +114,6 @@ void GameState::initPlayerGUI()
 
 void GameState::initTileMap()
 {
-	//this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Resources/Images/Tiles/tilesheet1.png");
-
 	this->tileMap = new TileMap("text.slmp");
 }
 
@@ -128,9 +128,12 @@ GameState::GameState(StateData* state_data)
 	this->initTextures();
 	this->initPauseMenu();
 	this->initShaders();
+
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
+
+	
 }
 
 GameState::~GameState()

@@ -12,6 +12,7 @@ void Entity::initVariables()
 	this->movementComponent = NULL;
 	this->animationComponent = NULL;
 	this->attributeComponent = NULL;
+	this->skillComponent = NULL;
 }
 
 Entity::Entity()
@@ -27,6 +28,7 @@ Entity::~Entity()
 	delete this->movementComponent;
 	delete this->animationComponent;
 	delete this->attributeComponent;
+	delete this->skillComponent;
 }
 
 //component functions
@@ -57,6 +59,11 @@ void Entity::createAnimationComponent(sf::Texture & texture_sheet)
 void Entity::createAttributeComponent(const unsigned level)
 {
 	this->attributeComponent = new AttributeComponent(level);
+}
+
+void Entity::createSkillComponent()
+{
+	this->skillComponent = new SkillComponent();
 }
 
 const sf::Vector2f & Entity::getPosition() const
@@ -130,6 +137,12 @@ void Entity::move(const float dir_x, const float dir_y, const float& dt)
 	//move entity in x & y directions multiplied by movementspeed and delta time
 	if (this->movementComponent)
 		this->movementComponent->move(dir_x, dir_y, dt); //set velocity
+
+	if (skillComponent)
+	{
+		this->skillComponent->gainExp(SKILLS::ENDURANCE, 1);
+		std::cout << this->skillComponent->getSkill(SKILLS::ENDURANCE) << "\n";
+	}
 }
 
 void Entity::stopVelocity()
