@@ -14,31 +14,31 @@ void Player::initComponents()
 	
 }
 
-//Constructors 
-Player::Player(float x, float y, sf::Texture& texture_sheet)
+void Player::initAnimations()
 {
-	this->initVariables();
-	this->initComponents();
-
-	
-	this->setPosition(x, y);
-
-	this->createHitboxComponent(this->sprite, 10.f, 5.f, 45.f, 55.f);
-	this->createMovementComponent(300, 1500.f, 900.f);
-	this->createAnimationComponent(texture_sheet);
-	this->createAttributeComponent(1);
-	this->createSkillComponent();
-	
-
 	this->animationComponent->addAnimation("IDLE", 0.4f, 0, 0, 8, 0, 64, 64);
 	this->animationComponent->addAnimation("WALK_DOWN", 5.f, 0, 1, 3, 1, 64, 64);
 	this->animationComponent->addAnimation("WALK_LEFT", 5.f, 4, 1, 7, 1, 64, 64);
 	this->animationComponent->addAnimation("WALK_RIGHT", 5.f, 8, 1, 11, 1, 64, 64);
 	this->animationComponent->addAnimation("WALK_UP", 5.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 0.4f, 0, 2, 13, 2, 64, 64);
+}
 
-	
-	
+//Constructors 
+Player::Player(float x, float y, sf::Texture& texture_sheet)
+{
+	this->initVariables();
+	this->initComponents();
+
+	this->createHitboxComponent(this->sprite, 10.f, 5.f, 45.f, 55.f);
+	this->createMovementComponent(300, 1500.f, 900.f);
+	this->createAnimationComponent(texture_sheet);
+	this->createAttributeComponent(1);
+	this->createSkillComponent();
+
+
+	this->setPosition(x, y);
+	this->initAnimations();
 }
 
 //Destructors

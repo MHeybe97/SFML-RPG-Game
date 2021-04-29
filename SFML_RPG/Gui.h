@@ -1,16 +1,6 @@
 /**\file Gui.h*/
 #pragma once
 
-//#include <iostream>
-//#include <ctime>
-//#include <cstdlib>
-//#include <sstream>
-//
-//#include "SFML\System.hpp"
-//#include "SFML\Window.hpp"
-//#include "SFML\Graphics.hpp"
-//#include "SFML\Audio.hpp"
-
 enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE}; //enum for button states
 
 namespace gui
@@ -65,6 +55,7 @@ namespace gui
 		void render(sf::RenderTarget& target); //render buttons
 	};
 
+
 	class DropDownList
 	{
 	private:
@@ -87,6 +78,7 @@ namespace gui
 		void update(const sf::Vector2i& mousePosWindow, const float& dt); //update buttons
 		void render(sf::RenderTarget& target); //render buttons
 	};
+
 
 	class TextureSelector
 	{
@@ -116,6 +108,29 @@ namespace gui
 		//Functions
 		void updateKeytime(const float& dt);
 		void update(const sf::Vector2i& mousePosWindow, const float& dt);
+		void render(sf::RenderTarget& target);
+	};
+
+	class ProgressBar
+	{
+	private:
+		std::string BarString;
+		sf::Text BarText;
+		sf::RectangleShape BarBack;
+		sf::RectangleShape BarInner;
+		float BarMaxWidth;
+		int BarmaxValue;
+
+	public:
+		ProgressBar(float x, float y, float width, float height, int max_Value, sf::VideoMode& vm, sf::Font* font = NULL);
+		~ProgressBar();
+
+		//Accessors
+
+		//Modifiers
+
+		//Functions
+		void update(const int current_value);
 		void render(sf::RenderTarget& target);
 	};
 }

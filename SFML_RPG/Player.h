@@ -12,10 +12,11 @@ private:
 	bool attacking;
 	Sword sword;
 	
-
 	//Initializer functions
 	void initVariables();
 	void initComponents();
+	void initAnimations();
+
 public:
 	Player(float x, float y, sf::Texture& texture_sheet);
 	virtual ~Player();
