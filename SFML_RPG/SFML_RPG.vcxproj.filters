@@ -40,6 +40,9 @@
     <Filter Include="Items\MeleeWeapon">
       <UniqueIdentifier>{8824c05f-911c-4cff-9a23-3002f1441eed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\EditorModes">
+      <UniqueIdentifier>{ec6f388b-9390-44a4-896f-9a2f9bbc8681}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -114,6 +117,18 @@
     <ClCompile Include="SkillComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpawner.cpp">
+      <Filter>Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorMode.cpp">
+      <Filter>States\EditorModes</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultEditorMode.cpp">
+      <Filter>States\EditorModes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -184,6 +199,18 @@
     </ClInclude>
     <ClInclude Include="SkillComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawner.h">
+      <Filter>Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMode.h">
+      <Filter>States\EditorModes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultEditorMode.h">
+      <Filter>States\EditorModes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

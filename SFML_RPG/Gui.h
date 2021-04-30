@@ -122,7 +122,9 @@ namespace gui
 		int BarmaxValue;
 
 	public:
-		ProgressBar(float x, float y, float width, float height, int max_Value, sf::VideoMode& vm, sf::Font* font = NULL);
+		ProgressBar(float x, float y, float width, float height, 
+			sf::Color BarInner_colour, unsigned character_size,
+			sf::VideoMode& vm, sf::Font* font = NULL);
 		~ProgressBar();
 
 		//Accessors
@@ -130,7 +132,7 @@ namespace gui
 		//Modifiers
 
 		//Functions
-		void update(const int current_value);
+		void update(const int current_value, const int max_value);
 		void render(sf::RenderTarget& target);
 	};
 }

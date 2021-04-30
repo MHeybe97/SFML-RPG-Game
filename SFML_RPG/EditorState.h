@@ -5,21 +5,31 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "GraphicsSettings.h"
+#include "EditorMode.h"
+#include "DefaultEditorMode.h"
 
 class State;
+class StateData;
 class Gui;
 class PauseMenu;
 class TileMap;
+class Tile;
+class EditorMode;
+class EditorStateData;
+class DefaultEditorMode;
+
+enum EditorModes {DEFAULT_MODE = 0, ENEMY_MODE};
+
+
 
 class EditorState : public State
 {
 private:
 	//Variables
-	sf::View view;
-	
+	EditorStateData editorStateData;
 
+	sf::View view;
 	sf::Font font; // button font
-	sf::Text cursorText;
 	PauseMenu* pmenu;
 
 	//Button* gamestate_btn;
@@ -27,23 +37,24 @@ private:
 
 	TileMap* tileMap;
 
+	float cameraSpeed;
+	/*sf::Text cursorText;
 	sf::RectangleShape sidebar;
-
 	sf::IntRect textureRect;
 	sf::RectangleShape selectorRect;
-
 	gui::TextureSelector* textureSelector;
-
 	float cameraSpeed;
 	bool collision;
 	short type;
 	int layer;
-	bool tileAddLock;
+	bool tileAddLock;*/
+
+	std::vector<EditorMode*> modes;
 
 	//functions
 	void initVariables();
+	void initEditorStateData();
 	void initView();
-	void initBackground();
 	void initFonts(); //initialise fonts
 	void initText();
 	void initKeybinds(); //initialise keybinds
@@ -51,6 +62,7 @@ private:
 	void initButtons(); //initialise buttons
 	void initGui();
 	void initTileMap();
+	void initModes();
 
 public:
 	EditorState(StateData* state_data); //contructor
@@ -65,9 +77,11 @@ public:
 	void updateEditorInput(const float& dt);
 	void updateGui(const float& dt);
 	void updatePausedMenuButtons();
+	void updateModes(const float&  dt);
 	void update(const float& dt); //update editor state
 	void renderButtons(sf::RenderTarget& target); //render button to the screen
 	void renderGui(sf::RenderTarget& target);
+	void renderModes(sf::RenderTarget& target);
 	void render(sf::RenderTarget* target = nullptr); //render editor state window
 };
 

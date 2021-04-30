@@ -28,6 +28,7 @@ void PlayerGUI::initLevelBar()
 
 void PlayerGUI::initEXPBar()
 {
+	
 	float width = gui::p2pX(14.6f, this->vm);
 	float height = gui::p2pY(2.6f, this->vm);
 	float x = gui::p2pX(1.4f, this->vm);
@@ -46,42 +47,37 @@ void PlayerGUI::initEXPBar()
 	this->expBarText.setFont(this->font);
 	this->expBarText.setCharacterSize(gui::calcCharSize(this->vm, 170));
 	this->expBarText.setPosition(
-		this->expBarBack.getPosition().x + gui::p2pX(0.73f,this->vm), 
-		this->expBarBack.getPosition().y + gui::p2pY(0.45f,this->vm));
+		this->expBarBack.getPosition().x + gui::p2pX(0.73f, this->vm),
+		this->expBarBack.getPosition().y + gui::p2pY(0.45f, this->vm));
 }
 
 void PlayerGUI::initHPBar()
 {
-	/*float width = gui::p2pX(14.6f, this->vm);
+	/*this->hpBar = new gui::ProgressBar(
+		1.4, 11.7, 14.6f, 3.9f, 
+		sf::Color::Red, 120,
+		this->vm, 
+		&this->font);*/
+
+	float width = gui::p2pX(14.6f, this->vm);
 	float height = gui::p2pY(3.9f, this->vm);
 	float x = gui::p2pX(1.4f, this->vm);
-	float y = gui::p2pY(11.7f, this->vm);*/
+	float y = gui::p2pY(11.7f, this->vm);
 
-	this->hpBar = new gui::ProgressBar(
-		1.4, 11.7, 14.6f, 3.9f, 
-		this->player->getAttributeComponent()->hpMax,
-		this->vm, 
-		&this->font);
-
-	/*this->hpBarMaxWidth = width;
-
+	this->hpBarMaxWidth = width;
 	this->hpBarText.setFont(this->font);
-
 	this->hpBarBack.setSize(sf::Vector2f(width, height));
 	this->hpBarBack.setFillColor(sf::Color(50, 50, 50, 200));
 	this->hpBarBack.setPosition(x, y);
-
 	this->hpBarInner.setSize(sf::Vector2f(width, height));
 	this->hpBarInner.setFillColor(sf::Color(250, 20, 20, 200));
 	this->hpBarInner.setPosition(this->hpBarBack.getPosition());
-
 	this->hpBarText.setFont(this->font);
 	this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 120));
 	this->hpBarText.setPosition(
 		this->hpBarInner.getPosition().x + gui::p2pX(0.73f, this->vm),
 		this->hpBarInner.getPosition().y + gui::p2pY(0.65f, this->vm)
-	);*/
-
+	);
 }
 
 PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm)
@@ -98,7 +94,8 @@ PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm)
 
 PlayerGUI::~PlayerGUI()
 {
-	delete this->hpBar;
+	//delete this->hpBar;
+	
 }
 
 void PlayerGUI::updateLevelBar()
@@ -109,6 +106,8 @@ void PlayerGUI::updateLevelBar()
 
 void PlayerGUI::updateEXPBar()
 {
+	//this->expBar->update(this->player->getAttributeComponent()->exp, this->player->getAttributeComponent()->expNext);
+
 	float percent = static_cast<float>(this->player->getAttributeComponent()->exp) / static_cast<float>(this->player->getAttributeComponent()->expNext);
 
 	this->expBarInner.setSize(
@@ -119,27 +118,24 @@ void PlayerGUI::updateEXPBar()
 
 	);
 
-	this->expBarString = std::to_string(this->player->getAttributeComponent()->exp) + " " + std::to_string(this->player->getAttributeComponent()->expNext);
+	this->expBarString = std::to_string(this->player->getAttributeComponent()->exp) + " - " + std::to_string(this->player->getAttributeComponent()->expNext);
 	this->expBarText.setString(this->expBarString);
 }
 
 //Functions
 void PlayerGUI::updateHPBar()
 {
-	this->hpBar->update(this->player->getAttributeComponent()->hp);
-	/*float percent = static_cast<float>(this->player->getAttributeComponent()->hp) / static_cast<float>(this->player->getAttributeComponent()->hpMax);
+	//this->hpBar->update(this->player->getAttributeComponent()->hp, this->player->getAttributeComponent()->hpMax);
 
-	this->hp
-BarInner.setSize(
-		sf::Vector2f(
-			static_cast<float>(std::floor(this->hpBarMaxWidth * percent)), 
-			this->hpBarInner.getSize().y
-		)
-
-	);
-
-	this->hpBarString = std::to_string(this->player->getAttributeComponent()->hp) + " " + std::to_string(this->player->getAttributeComponent()->hpMax);
-	this->hpBarText.setString(this->hpBarString);*/
+	float percent = static_cast<float>(this->player->getAttributeComponent()->hp) / static_cast<float>(this->player->getAttributeComponent()->hpMax);
+	this->hpBarInner.setSize(
+			sf::Vector2f(
+				static_cast<float>(std::floor(this->hpBarMaxWidth * percent)),
+				this->hpBarInner.getSize().y
+			)
+		);
+	this->hpBarString = std::to_string(this->player->getAttributeComponent()->hp) + " - " + std::to_string(this->player->getAttributeComponent()->hpMax);
+	this->hpBarText.setString(this->hpBarString);
 }
 
 
@@ -158,6 +154,8 @@ void PlayerGUI::renderLevelBar(sf::RenderTarget & target)
 
 void PlayerGUI::renderEXPBAR(sf::RenderTarget & target)
 {
+	//this->expBar->render(target);
+
 	target.draw(this->expBarBack);
 	target.draw(this->expBarInner);
 	target.draw(this->expBarText);
@@ -165,10 +163,11 @@ void PlayerGUI::renderEXPBAR(sf::RenderTarget & target)
 
 void PlayerGUI::renderHPBar(sf::RenderTarget & target)
 {
-	this->hpBar->render(target);
-	/*target.draw(this->hpBarBack);
+	//this->hpBar->render(target);
+
+	target.draw(this->hpBarBack);
 	target.draw(this->hpBarInner);
-	target.draw(this->hpBarText);*/
+	target.draw(this->hpBarText);
 }
 
 void PlayerGUI::render(sf::RenderTarget & target)

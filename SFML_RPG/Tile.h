@@ -2,7 +2,7 @@
 #pragma once
 #include "Gui.h"
 
-enum TileType {DEFAULT = 0, DAMAGING, DOODAD};
+enum TileType {DEFAULT = 0, DAMAGING, DOODAD, ENEMYSPAWNER};
 
 class Tile
 {
@@ -27,7 +27,7 @@ public:
 	const short& getType() const;
 
 	//Functions
-	void update();
-	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
+	virtual void update();
+	virtual void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f player_Position = sf::Vector2f());
 };
 

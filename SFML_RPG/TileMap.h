@@ -47,9 +47,7 @@ public:
 	void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type);
 	void removeTile(const int x, const int y, const int z);
 
-	void updateCollision(Entity* entity, const float& dt);
-
-	void update();
+	void update(Entity* entity, const float& dt);
 
 	void render
 	(

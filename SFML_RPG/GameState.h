@@ -7,12 +7,13 @@
 #include "GraphicsSettings.h"
 #include "PlayerGUI.h"
 #include "Sword.h"
+#include "Enemy.h"
 
 class PausMenu;
 class Player;
 class PlayerGUI;
 class TileMap;
-
+class Enemy;
 class sf::View;
 class sf::Font;
 class sf::RenderTexture;
@@ -35,9 +36,13 @@ private:
 	PlayerGUI* playerGUI;
 	sf::Texture texture;
 
+	//Enemy
+
+
 	//TileMap
 	TileMap* tileMap;
 
+	std::vector<Enemy*> activeEnemies;
 
 	//functions
 	void initDeferredRender();

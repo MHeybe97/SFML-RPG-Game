@@ -396,7 +396,9 @@ void gui::TextureSelector::render(sf::RenderTarget & target)
 	this->hide_btn->render(target);
 }
 
-gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, int max_Value, sf::VideoMode& vm, sf::Font* font)
+gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, 
+	sf::Color BarInner_colour, unsigned character_size, 
+	sf::VideoMode& vm, sf::Font* font)
 {
 	float width = gui::p2pX(_width, vm);
 	float height = gui::p2pY(_height, vm);
@@ -404,20 +406,19 @@ gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, i
 	float y = gui::p2pY(_y, vm);
 
 	this->BarMaxWidth = width;
-	this->BarmaxValue = max_Value;
-
+	
 	this->BarBack.setSize(sf::Vector2f(width, height));
 	this->BarBack.setFillColor(sf::Color(50, 50, 50, 200));
 	this->BarBack.setPosition(x, y);
 
 	this->BarInner.setSize(sf::Vector2f(width, height));
-	this->BarInner.setFillColor(sf::Color(250, 20, 20, 200));
+	this->BarInner.setFillColor(BarInner_colour);
 	this->BarInner.setPosition(this->BarBack.getPosition());
 
 	if (font)
 	{
 		this->BarText.setFont(*font);
-		this->BarText.setCharacterSize(gui::calcCharSize(vm, 120));
+		this->BarText.setCharacterSize(gui::calcCharSize(vm, character_size));
 		this->BarText.setPosition(
 			this->BarInner.getPosition().x + gui::p2pX(0.73f, vm),
 			this->BarInner.getPosition().y + gui::p2pY(0.65f, vm)
@@ -430,19 +431,19 @@ gui::ProgressBar::~ProgressBar()
 
 }
 
-void gui::ProgressBar::update(const int current_value)
+void gui::ProgressBar::update(const int current_value, const int max_value)
 {
-	float percent = static_cast<float>(current_value) / static_cast<float>(this->BarmaxValue);
+	float percent = static_cast<float>(current_value) / static_cast<float>(max_value);
 
 	this->BarInner.setSize(
 		sf::Vector2f(
-			static_cast<float>(std::floor(this->BarMaxWidth * percent)),
+			static_cast<float>(std::floor(max_value * percent)),
 			this->BarInner.getSize().y
 		)
 
 	);
 
-	this->BarString = std::to_string(current_value) + " - " + std::to_string(BarmaxValue);
+	this->BarString = std::to_string(current_value) + " - " + std::to_string(max_value);
 	this->BarText.setString(this->BarString);
 }
 

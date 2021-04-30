@@ -35,6 +35,6 @@ public:
 	void updateAnimations(const float dt);
 	virtual void update(const float& dt, sf::Vector2f& mouse_pos_view);
 
-	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const bool show_hitbox = false);
+	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false);
 };
 

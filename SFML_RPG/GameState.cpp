@@ -74,6 +74,11 @@ void GameState::initTextures()
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE!";
 	}
 
+	if (!this->textures["RAT1_SHEET"].loadFromFile("Resources/Images/Sprites/Enemy/rat1_60x64.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_ENEMY_TEXTURE!";
+	}
+
 }
 
 void GameState::initPauseMenu()
@@ -129,6 +134,9 @@ GameState::GameState(StateData* state_data)
 	this->initPauseMenu();
 	this->initShaders();
 
+	this->activeEnemies.push_back(new Enemy(200.f, 100.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Enemy(500.f, 100.f, this->textures["RAT1_SHEET"]));
+
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
@@ -142,6 +150,11 @@ GameState::~GameState()
 	delete this->player;
 	delete this->playerGUI;
 	delete this->tileMap;
+
+	for (size_t i = 0; i < this->activeEnemies.size(); i++)
+	{
+		delete this->activeEnemies[i];
+	}
 }
 
 void GameState::updateView(const float & dt)
@@ -202,14 +215,13 @@ void GameState::updatePlayerInput(const float & dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) //move player up
 	{
 		this->player->move(0.f, -1.f, dt);
-		if (this->getKeytime())
-			this->player->gainEXP(10);
+		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) //move pplayer down
 	{
 		this->player->move(0.f, 1.f, dt);
 		if (this->getKeytime())
-			this->player->loseEXP(10);
+			this->player->loseHP(1);
 	}
 	
 }
@@ -227,8 +239,12 @@ void GameState::updatePausedMenuButtons()
 
 void GameState::updateTileMap(const float & dt)
 {
-	this->tileMap->update();
-	this->tileMap->updateCollision(this->player, dt);
+	this->tileMap->update(this->player, dt);
+	
+	for (auto *i : this->activeEnemies)
+	{
+		this->tileMap->update(i, dt);
+	}
 }
 
 void GameState::update(const float& dt)
@@ -248,6 +264,11 @@ void GameState::update(const float& dt)
 		this->player->update(dt, this->mousePosView); //update player
 
 		this->playerGUI->update(dt);
+
+		for (auto *i : this->activeEnemies)
+		{
+			i->update(dt, this->mousePosView);
+		}
 	}
 	else //paused update
 	{
@@ -272,7 +293,12 @@ void GameState::render(sf::RenderTarget* target)
 		this->player->getCenter(),
 		 false);
 
-	this->player->render(this->renderTexture, &this->core_shader, false); //render the player on the window
+	for (auto *i : this->activeEnemies)
+	{
+		i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
+	}
+
+	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false); //render the player on the window
 
 	this->tileMap->renderDeffered(this->renderTexture, &this->core_shader, this->player->getCenter());
 
