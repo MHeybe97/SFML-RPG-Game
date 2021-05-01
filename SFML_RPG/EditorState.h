@@ -7,6 +7,7 @@
 #include "GraphicsSettings.h"
 #include "EditorMode.h"
 #include "DefaultEditorMode.h"
+#include "EditorModes.h"
 
 class State;
 class StateData;
@@ -18,7 +19,7 @@ class EditorMode;
 class EditorStateData;
 class DefaultEditorMode;
 
-enum EditorModes {DEFAULT_MODE = 0, ENEMY_MODE};
+enum EditorModes {DEFAULT_DITOR_MODE = 0, ENEMY_EDITOR_MODE};
 
 
 
@@ -50,6 +51,7 @@ private:
 	bool tileAddLock;*/
 
 	std::vector<EditorMode*> modes;
+	unsigned activeMode;
 
 	//functions
 	void initVariables();

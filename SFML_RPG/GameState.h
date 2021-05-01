@@ -8,15 +8,10 @@
 #include "PlayerGUI.h"
 #include "Sword.h"
 #include "Enemy.h"
+#include "EnemiesInclude.h"
+#include "EnemySpawner.h"
+#include "EnemySystem.h"
 
-class PausMenu;
-class Player;
-class PlayerGUI;
-class TileMap;
-class Enemy;
-class sf::View;
-class sf::Font;
-class sf::RenderTexture;
 
 class GameState : public State
 {
@@ -37,12 +32,14 @@ private:
 	sf::Texture texture;
 
 	//Enemy
-
+	
 
 	//TileMap
 	TileMap* tileMap;
 
 	std::vector<Enemy*> activeEnemies;
+	EnemySystem *enemySystem;
+	
 
 	//functions
 	void initDeferredRender();
@@ -54,6 +51,7 @@ private:
 	void initShaders();
 	void initPlayers();
 	void initPlayerGUI();
+	void initEnemySystem();
 	void initTileMap();
 
 public:
@@ -68,6 +66,8 @@ public:
 	void updatePlayerGUI(const float& dt);
 	void updatePausedMenuButtons();
 	void updateTileMap(const float& dt);
+	void updatePlayer(const float& dt);
+	void updateEnemies(const float& dt);
 	void update(const float& dt); //update gamestate
 	void render(sf::RenderTarget* target = nullptr); //render to gamestate window
 };

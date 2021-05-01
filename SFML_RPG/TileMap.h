@@ -1,10 +1,16 @@
 /**\file TileMap.h*/
 #pragma once
-#include "Tile.h"
-#include "Entity.h"
+//#include "Tile.h"
+//#include "Entity.h"
+#include "EnemySpawner.h"
+#include "RegularTile.h"
+#include "EnemiesInclude.h"
+#include "EnemySystem.h"
 
 class Tile;
 class Entity;
+class EnemySpawner;
+class Enemy;
 
 class TileMap
 {
@@ -45,8 +51,15 @@ public:
 	void saveToFile(const std::string file_name);
 	void loadFromFile(const std::string file_name);
 	void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type);
-	void removeTile(const int x, const int y, const int z);
+	void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect,
+		const int enemy_type, const int enemy_amount, const int enemy_tts, const int enemy_md);
+	void removeTile(const int x, const int y, const int z, const int type = -1);
+	const bool checkType(const int x, const int y, const int z, const int type) const;
 
+	void updateWorldBoundCollision(Entity* entity, const float& dt);
+	void updateTileCollision(Entity* entity, const float& dt);
+	void updateTiles(Entity* entity, const float& dt, 
+		EnemySystem& enemySystem);
 	void update(Entity* entity, const float& dt);
 
 	void render

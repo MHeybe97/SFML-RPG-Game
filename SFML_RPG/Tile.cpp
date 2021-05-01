@@ -8,8 +8,8 @@ Tile::Tile()
 	this->type = 0;
 }
 
-Tile::Tile(int grid_x, int grid_y,float gridSizeF, const sf::Texture& texture, const sf::IntRect& texture_rect,
-	bool collision, short type)
+Tile::Tile(short type, int grid_x, int grid_y,float gridSizeF, const sf::Texture& texture, const sf::IntRect& texture_rect,
+	const bool collision)
 {
 	this->shape.setPosition(static_cast<float>(grid_x) * gridSizeF, static_cast<float>(grid_y) * gridSizeF);
 	this->shape.setTexture(texture);
@@ -23,6 +23,8 @@ Tile::Tile(int grid_x, int grid_y,float gridSizeF, const sf::Texture& texture, c
 Tile::~Tile()
 {
 }
+
+
 
 const bool & Tile::getCollision() const
 {
@@ -47,13 +49,7 @@ const bool Tile::intersects(const sf::FloatRect bounds) const
 	return this->shape.getGlobalBounds().intersects(bounds);
 }
 
-const std::string Tile::getAsString() const
-{
-	std::stringstream ss;
 
-	ss << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision << " " << this->type;
-	return ss.str();
-}
 
 const short & Tile::getType() const
 {
@@ -61,23 +57,6 @@ const short & Tile::getType() const
 }
 
 
-void Tile::update()
-{
-	
-}
-
-void Tile::render(sf::RenderTarget & target, sf::Shader* shader, const sf::Vector2f player_Position )
-{
-	if (shader)
-	{
-		shader->setUniform("hasTexture", true);
-		shader->setUniform("light", player_Position);
-
-		target.draw(this->shape, shader);
-	}
-	else
-		target.draw(this->shape);
-}
 
 
 

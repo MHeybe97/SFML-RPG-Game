@@ -43,6 +43,9 @@
     <Filter Include="States\EditorModes">
       <UniqueIdentifier>{ec6f388b-9390-44a4-896f-9a2f9bbc8681}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities\Enemies">
+      <UniqueIdentifier>{21732aab-5258-4ad2-8676-2b43a1951012}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -117,9 +120,6 @@
     <ClCompile Include="SkillComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>Tile</Filter>
     </ClCompile>
@@ -128,6 +128,21 @@
     </ClCompile>
     <ClCompile Include="DefaultEditorMode.cpp">
       <Filter>States\EditorModes</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyEditorMode.cpp">
+      <Filter>States\EditorModes</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="RatEnemy.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="RegularTile.cpp">
+      <Filter>Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySystem.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +215,6 @@
     <ClInclude Include="SkillComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="EnemySpawner.h">
       <Filter>Tile</Filter>
     </ClInclude>
@@ -211,6 +223,27 @@
     </ClInclude>
     <ClInclude Include="DefaultEditorMode.h">
       <Filter>States\EditorModes</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyEditorMode.h">
+      <Filter>States\EditorModes</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorModes.h">
+      <Filter>States\EditorModes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemiesInclude.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="RatEnemy.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="RegularTile.h">
+      <Filter>Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

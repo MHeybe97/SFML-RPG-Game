@@ -117,6 +117,12 @@ void GameState::initPlayerGUI()
 	);
 }
 
+void GameState::initEnemySystem()
+{
+	this->enemySystem = new EnemySystem(this->activeEnemies, this->textures);
+
+}
+
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap("text.slmp");
@@ -134,11 +140,12 @@ GameState::GameState(StateData* state_data)
 	this->initPauseMenu();
 	this->initShaders();
 
-	this->activeEnemies.push_back(new Enemy(200.f, 100.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Enemy(500.f, 100.f, this->textures["RAT1_SHEET"]));
+	/*this->activeEnemies.push_back(new RatEnemy(200.f, 100.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new RatEnemy(500.f, 100.f, this->textures["RAT1_SHEET"]));*/
 
 	this->initPlayers();
 	this->initPlayerGUI();
+	this->initEnemySystem();
 	this->initTileMap();
 
 	
@@ -149,6 +156,7 @@ GameState::~GameState()
 	delete this->pmenu;
 	delete this->player;
 	delete this->playerGUI;
+	delete this->enemySystem;
 	delete this->tileMap;
 
 	for (size_t i = 0; i < this->activeEnemies.size(); i++)
@@ -220,8 +228,8 @@ void GameState::updatePlayerInput(const float & dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) //move pplayer down
 	{
 		this->player->move(0.f, 1.f, dt);
-		if (this->getKeytime())
-			this->player->loseHP(1);
+		/*if (this->getKeytime())
+			this->player->loseHP(1);*/
 	}
 	
 }
@@ -239,12 +247,23 @@ void GameState::updatePausedMenuButtons()
 
 void GameState::updateTileMap(const float & dt)
 {
-	this->tileMap->update(this->player, dt);
+	this->tileMap->updateWorldBoundCollision(this->player, dt);
+	this->tileMap->updateTileCollision(this->player, dt);
+	this->tileMap->updateTiles(this->player, dt, *this->enemySystem);
 	
 	for (auto *i : this->activeEnemies)
 	{
-		this->tileMap->update(i, dt);
+		this->tileMap->updateWorldBoundCollision(i, dt);
+		this->tileMap->updateTileCollision(i, dt);
 	}
+}
+
+void GameState::updatePlayer(const float & dt)
+{
+}
+
+void GameState::updateEnemies(const float & dt)
+{
 }
 
 void GameState::update(const float& dt)

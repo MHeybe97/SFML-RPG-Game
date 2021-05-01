@@ -42,7 +42,7 @@ protected:
 	sf::Vector2i mousePosGrid;
 
 	//Resources
-	std::map<sf::String, sf::Texture> textures;
+	std::map<std::string, sf::Texture> textures;
 
 	//functions
 	virtual void initKeybinds() = 0; //initialise keybinds
