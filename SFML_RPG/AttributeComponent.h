@@ -38,7 +38,10 @@ public:
 	void gainHP(const int hp);
 	void loseEXP(const int exp);
 	void gainEXP(const int exp);
+
+	const bool isDead() const;
 	const bool isAlive() const;
+
 	void updateStats(const bool reset);
 	void updateLevel();
 

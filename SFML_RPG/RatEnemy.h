@@ -11,6 +11,7 @@ public:
 	virtual ~RatEnemy();
 
 	//Functions
+
 	void updateAnimation(const float& dt);
 
 	 void update(const float & dt, sf::Vector2f& mouse_pos_view);

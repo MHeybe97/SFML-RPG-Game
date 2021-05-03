@@ -37,14 +37,17 @@
     <Filter Include="Items">
       <UniqueIdentifier>{01a3479e-41c2-447a-bcef-88f8ab450844}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Items\MeleeWeapon">
-      <UniqueIdentifier>{8824c05f-911c-4cff-9a23-3002f1441eed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="States\EditorModes">
       <UniqueIdentifier>{ec6f388b-9390-44a4-896f-9a2f9bbc8681}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entities\Enemies">
       <UniqueIdentifier>{21732aab-5258-4ad2-8676-2b43a1951012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items\Weapon">
+      <UniqueIdentifier>{29604ee0-61ec-4375-9344-b94291b95df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items\Weapon\MeleeWeapon">
+      <UniqueIdentifier>{8824c05f-911c-4cff-9a23-3002f1441eed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,10 +115,10 @@
       <Filter>Items</Filter>
     </ClCompile>
     <ClCompile Include="MeleeWeapon.cpp">
-      <Filter>Items\MeleeWeapon</Filter>
+      <Filter>Items\Weapon\MeleeWeapon</Filter>
     </ClCompile>
     <ClCompile Include="Sword.cpp">
-      <Filter>Items\MeleeWeapon</Filter>
+      <Filter>Items\Weapon\MeleeWeapon</Filter>
     </ClCompile>
     <ClCompile Include="SkillComponent.cpp">
       <Filter>Components</Filter>
@@ -142,7 +145,13 @@
       <Filter>Tile</Filter>
     </ClCompile>
     <ClCompile Include="EnemySystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Items\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,10 +216,10 @@
       <Filter>Items</Filter>
     </ClInclude>
     <ClInclude Include="MeleeWeapon.h">
-      <Filter>Items\MeleeWeapon</Filter>
+      <Filter>Items\Weapon\MeleeWeapon</Filter>
     </ClInclude>
     <ClInclude Include="Sword.h">
-      <Filter>Items\MeleeWeapon</Filter>
+      <Filter>Items\Weapon\MeleeWeapon</Filter>
     </ClInclude>
     <ClInclude Include="SkillComponent.h">
       <Filter>Components</Filter>
@@ -243,7 +252,16 @@
       <Filter>Tile</Filter>
     </ClInclude>
     <ClInclude Include="EnemySystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Items\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

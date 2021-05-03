@@ -58,8 +58,7 @@ public:
 
 	void updateWorldBoundCollision(Entity* entity, const float& dt);
 	void updateTileCollision(Entity* entity, const float& dt);
-	void updateTiles(Entity* entity, const float& dt, 
-		EnemySystem& enemySystem);
+	void updateTiles(Entity* entity, const float& dt, EnemySystem& enemySystem);
 	void update(Entity* entity, const float& dt);
 
 	void render

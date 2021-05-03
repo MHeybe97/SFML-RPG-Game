@@ -7,6 +7,7 @@
 void Player::initVariables()
 {
 	this->attacking = false;
+	this->sword = new Sword(20, "Resources/Images/Sprites/Player/sword.png");
 }
 
 void Player::initComponents()
@@ -24,6 +25,11 @@ void Player::initAnimations()
 	this->animationComponent->addAnimation("ATTACK", 0.4f, 0, 2, 13, 2, 64, 64);
 }
 
+void Player::initInventory()
+{
+	this->inventory = new Inventory(100);
+}
+
 //Constructors 
 Player::Player(float x, float y, sf::Texture& texture_sheet)
 {
@@ -39,17 +45,26 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 
 	this->setPosition(x, y);
 	this->initAnimations();
+
+	this->initInventory();
 }
 
 //Destructors
 Player::~Player()
 {
+	delete this->inventory;
+	delete this->sword;
 }
 
 //Accessors
 AttributeComponent * Player::getAttributeComponent()
 {
 	return this->attributeComponent;
+}
+
+Weapon * Player::getWeapon() 
+{
+	return this->sword;
 }
 
 
@@ -84,14 +99,7 @@ void Player::gainEXP(const int exp)
 	this->attributeComponent->gainEXP(exp);
 }
 
-void Player::updateAttack()
-{
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		//this->attacking = true;
 
-	}
-}
 
 void Player::updateAnimations(const float dt)
 {
@@ -145,21 +153,19 @@ void Player::updateAnimations(const float dt)
 
 void Player::update(const float & dt, sf::Vector2f& mouse_pos_view)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		this->attributeComponent->gainEXP(20);
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+		this->attributeComponent->gainEXP(20);*/
 	
 	/*system("cls");
 	std::cout << this->attributeComponent->debugPrint() << "\n";*/
 
 	this->movementComponent->update(dt);
 
-	this->updateAttack();
-
 	this->updateAnimations(dt);
 	
 	this->hitboxComponent->update();
 
-	this->sword.update(mouse_pos_view, this->getCenter());
+	this->sword->update(mouse_pos_view, this->getCenter());
 }
 
 void Player::render(sf::RenderTarget & target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
@@ -172,12 +178,12 @@ void Player::render(sf::RenderTarget & target, sf::Shader* shader, const sf::Vec
 
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("light", light_position);
-		this->sword.render(target, shader);
+		this->sword->render(target, shader);
 	}
 	else
 	{
 		target.draw(this->sprite);
-		this->sword.render(target);
+		this->sword->render(target);
 	}
 
 	if (show_hitbox)

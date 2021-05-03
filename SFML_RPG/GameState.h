@@ -67,7 +67,8 @@ public:
 	void updatePausedMenuButtons();
 	void updateTileMap(const float& dt);
 	void updatePlayer(const float& dt);
-	void updateEnemies(const float& dt);
+	void updateCombatAndEnemies(const float& dt);
+	void updateCombat(Enemy* enemy, const int index, const float& dt);
 	void update(const float& dt); //update gamestate
 	void render(sf::RenderTarget* target = nullptr); //render to gamestate window
 };

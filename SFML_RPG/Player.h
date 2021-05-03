@@ -1,7 +1,8 @@
 /**\file Player.h*/
 #pragma once
 #include "Entity.h"
-#include "Sword.h"
+#include "Items.h"
+#include "Inventory.h"
 
 class Entity;
 
@@ -9,13 +10,16 @@ class Player : public Entity
 {
 private:
 	//variables
+	Inventory* inventory;
+
 	bool attacking;
-	Sword sword;
+	Sword* sword;
 	
 	//Initializer functions
 	void initVariables();
 	void initComponents();
 	void initAnimations();
+	void initInventory();
 
 public:
 	Player(float x, float y, sf::Texture& texture_sheet);
@@ -23,6 +27,7 @@ public:
 
 	//Accessors
 	AttributeComponent* getAttributeComponent();
+	Weapon* getWeapon();
 
 	//Functions
 	void loseHP(const int hp);
@@ -31,7 +36,6 @@ public:
 	void loseEXP(const int exp);
 	void gainEXP(const int exp);
 
-	void updateAttack();
 	void updateAnimations(const float dt);
 	virtual void update(const float& dt, sf::Vector2f& mouse_pos_view);
 

@@ -9,7 +9,8 @@ class EnemySpawner;
 class Enemy : public Entity
 {
 private:
-	//EnemySpawner& enemySpawner;
+	//Variables
+	unsigned gainExp;
 
 	//Initializer Functions
 	virtual void initVariables() = 0;
@@ -18,7 +19,15 @@ public:
 	Enemy(float x, float y, sf::Texture& texture_sheet);
 	virtual ~Enemy();
 
+	//Accessors
+	const unsigned& getGainExp() const;
+
 	//Functions
+	virtual void loseHP(const int hp);
+	virtual const bool isDead() const;
+
+	virtual const AttributeComponent* getAttributeComponent() const;
+
 	virtual void updateAnimation(const float& dt) = 0;
 
 	virtual void update(const float & dt, sf::Vector2f& mouse_pos_view) = 0;

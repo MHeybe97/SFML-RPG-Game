@@ -3,9 +3,16 @@
 #include "Item.h"
 
 
-Item::Item()
+void Item::initVariables()
 {
-	std::cout << "Item" << "\n";
+}
+
+Item::Item(unsigned value)
+{
+	this->initVariables();
+
+	this->value = 0;
+	this->type = ItemTypes::ITEM_DEFAULT;
 }
 
 

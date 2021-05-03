@@ -251,19 +251,49 @@ void GameState::updateTileMap(const float & dt)
 	this->tileMap->updateTileCollision(this->player, dt);
 	this->tileMap->updateTiles(this->player, dt, *this->enemySystem);
 	
-	for (auto *i : this->activeEnemies)
-	{
-		this->tileMap->updateWorldBoundCollision(i, dt);
-		this->tileMap->updateTileCollision(i, dt);
-	}
 }
 
 void GameState::updatePlayer(const float & dt)
 {
 }
 
-void GameState::updateEnemies(const float & dt)
+void GameState::updateCombatAndEnemies(const float & dt)
 {
+	unsigned index = 0;
+	for (auto *enemy : this->activeEnemies)
+	{
+		enemy->update(dt, this->mousePosView);
+
+		this->tileMap->updateWorldBoundCollision(enemy, dt);
+		this->tileMap->updateTileCollision(enemy, dt);
+
+		this->updateCombat(enemy, index, dt);
+
+		if (enemy->isDead())
+		{
+			this->player->gainEXP(enemy->getGainExp());
+
+			this->activeEnemies.erase(this->activeEnemies.begin() + index);
+			--index;
+		}
+
+		++index;
+	}
+}
+
+void GameState::updateCombat(Enemy* enemy, const int index, const float & dt)
+{
+		
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (this->player->getWeapon()->getAttackTimer()
+				&& enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < 30.f)
+			{
+				enemy->loseHP(this->player->getWeapon()->getDamageMin());
+				std::cout << enemy->getAttributeComponent()->hp <<  "\n";
+			}
+		}
+	
 }
 
 void GameState::update(const float& dt)
@@ -284,10 +314,8 @@ void GameState::update(const float& dt)
 
 		this->playerGUI->update(dt);
 
-		for (auto *i : this->activeEnemies)
-		{
-			i->update(dt, this->mousePosView);
-		}
+		//Update all enemies
+		this->updateCombatAndEnemies(dt);
 	}
 	else //paused update
 	{
@@ -312,9 +340,9 @@ void GameState::render(sf::RenderTarget* target)
 		this->player->getCenter(),
 		 false);
 
-	for (auto *i : this->activeEnemies)
+	for (auto *enemy : this->activeEnemies)
 	{
-		i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
+		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
 	}
 
 	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false); //render the player on the window
