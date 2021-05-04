@@ -3,26 +3,25 @@
 #include "Entity.h"
 #include "EnemySpawner.h"
 
-class Entity;
-class EnemySpawner;
-
 class Enemy : public Entity
 {
 private:
 	//Variables
+	EnemySpawner& enemySpawner;
 	unsigned gainExp;
 
 	//Initializer Functions
 	virtual void initVariables() = 0;
 	virtual void initAnimations() = 0;
 public:
-	Enemy(float x, float y, sf::Texture& texture_sheet);
+	Enemy(EnemySpawner& enemy_spawner);
 	virtual ~Enemy();
 
 	//Accessors
 	const unsigned& getGainExp() const;
-
+	EnemySpawner& getEnemySpawner();
 	//Functions
+	virtual void generateAttributes(const unsigned level);
 	virtual void loseHP(const int hp);
 	virtual const bool isDead() const;
 

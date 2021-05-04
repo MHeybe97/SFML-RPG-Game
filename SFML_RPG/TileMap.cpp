@@ -517,18 +517,20 @@ void TileMap::updateTiles(Entity * entity, const float & dt, EnemySystem& enemyS
 		{
 			for (size_t k = 0; k < this->map[x][y][this->layer].size(); k++)
 			{
+				//Update the tile
 				this->map[x][y][this->layer][k]->update();
-
+				//Update tile type 
 				if (this->map[x][y][this->layer][k]->getType() == TileType::ENEMYSPAWNER)
 				{
 					EnemySpawner* es = dynamic_cast<EnemySpawner*>(this->map[x][y][this->layer][k]);
 					if (es)
 					{
-						if (!es->getSpawned())
+						if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount())
 						{
 							//activeEnimies.push_back(new RatEnemy(x*this->gridSizeF, y*this->gridSizeF, textures["RAT1_SHEET"]));
-							enemySystem.createEnemy(RAT, x*this->gridSizeF, y*this->gridSizeF);
+							enemySystem.createEnemy(RAT, x*this->gridSizeF, y*this->gridSizeF, *es);
 							es->setSpawned(true);
+							std::cout << "Spawned!" << "\n";
 						}
 					}
 				}
@@ -607,13 +609,15 @@ void TileMap::render
 							this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
 							target.draw(this->collisionBox);
 						}
-					}
+					
 
 					if (this->map[x][y][this->layer][k]->getType() == TileType::ENEMYSPAWNER)
 					{
 						this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
 						target.draw(this->collisionBox);
 					}
+					}
+					
 				}
 				
 			}

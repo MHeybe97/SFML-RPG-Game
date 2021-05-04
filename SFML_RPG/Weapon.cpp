@@ -5,7 +5,7 @@
 
 void Weapon::initVariables()
 {
-	this->range = 10;
+	this->range = 50;
 	this->damageMin = 1;
 	this->damageMax = 2;
 
@@ -14,11 +14,24 @@ void Weapon::initVariables()
 	this->attackTimerMax = 500;
 }
 
-Weapon::Weapon(unsigned value, std::string texture_file)
-	: Item(value)
+Weapon::Weapon(unsigned level, unsigned value, std::string texture_file)
+	: Item(level, value)
 {
 	this->initVariables();
 
+	if (!this->weapon_texture.loadFromFile(texture_file))
+		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE." << texture_file << "\n";
+	this->weapon_sprite.setTexture(weapon_texture);
+}
+
+Weapon::Weapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file)
+	: Item(level, value)
+{
+	this->initVariables();
+
+	this->damageMin = damageMin;
+	this->damageMax = damageMax;
+	this->range = range;
 	if (!this->weapon_texture.loadFromFile(texture_file))
 		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE." << texture_file << "\n";
 	this->weapon_sprite.setTexture(weapon_texture);
@@ -39,6 +52,11 @@ const unsigned & Weapon::getDamageMax() const
 	return this->damageMax;
 }
 
+const unsigned Weapon::getDamage() const
+{
+	return rand() % (this->damageMax - this->damageMin + 1) + (this->damageMin);
+}
+
 const unsigned & Weapon::getRange() const
 {
 	return this->range;
@@ -46,8 +64,7 @@ const unsigned & Weapon::getRange() const
 
 const bool Weapon::getAttackTimer()
 {
-	std::cout << this->attackTimer.getElapsedTime().asMicroseconds() << "\n";
-	if (this->attackTimer.getElapsedTime().asMicroseconds() >= this->attackTimerMax)
+	if (this->attackTimer.getElapsedTime().asMilliseconds() >= this->attackTimerMax)
 	{
 		this->attackTimer.restart();
 		return true;

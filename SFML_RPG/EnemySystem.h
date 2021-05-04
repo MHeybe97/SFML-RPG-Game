@@ -21,8 +21,8 @@ public:
 	//Modifiers
 
 	//Functions
-	void createEnemy(const short type, const float xPos, const float yPos);
-
+	void createEnemy(const short type, const float xPos, const float yPos, EnemySpawner& enemy_spawner);
+	void removeEnemy(const int index);
 	void update(const float& dt);
 	void render(sf::RenderTarget* target);
 };

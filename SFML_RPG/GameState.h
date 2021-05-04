@@ -11,6 +11,7 @@
 #include "EnemiesInclude.h"
 #include "EnemySpawner.h"
 #include "EnemySystem.h"
+#include "TextTagSystem.h"
 
 
 class GameState : public State
@@ -39,6 +40,9 @@ private:
 
 	std::vector<Enemy*> activeEnemies;
 	EnemySystem *enemySystem;
+
+	//Systems
+	TextTagSystem* tts;
 	
 
 	//functions
@@ -53,6 +57,7 @@ private:
 	void initPlayerGUI();
 	void initEnemySystem();
 	void initTileMap();
+	void initSystems();
 
 public:
 	GameState(StateData* state_data); //constructor

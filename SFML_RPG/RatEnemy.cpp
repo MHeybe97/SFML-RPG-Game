@@ -17,16 +17,26 @@ void RatEnemy::initAnimations()
 	this->animationComponent->addAnimation("ATTACK", 0.4f, 0, 2, 1, 2, 60, 64);
 }
 
-RatEnemy::RatEnemy(float x, float y, sf::Texture& texture_sheet)
-	: Enemy(x, y, texture_sheet)
+void RatEnemy::initGUI()
+{
+	this->hpBar.setFillColor(sf::Color::Red);
+	this->hpBar.setSize(sf::Vector2f(60.f, 10.f));
+	this->hpBar.setPosition(this->sprite.getPosition());
+}
+
+RatEnemy::RatEnemy(float x, float y, sf::Texture& texture_sheet, EnemySpawner& enemy_spawner)
+	: Enemy(enemy_spawner)
 {
 	this->initVariables();
+	this->initGUI();
 
 	this->createHitboxComponent(this->sprite, 10.f, 5.f, 45.f, 55.f);
 	this->createMovementComponent(300, 1500.f, 900.f);
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
 	this->createSkillComponent();
+
+	this->generateAttributes(this->attributeComponent->level);
 
 	this->setPosition(x, y);
 	this->initAnimations();
@@ -65,6 +75,8 @@ void RatEnemy::updateAnimation(const float & dt)
 void RatEnemy::update(const float & dt, sf::Vector2f & mouse_pos_view)
 {
 	this->movementComponent->update(dt);
+	this->hpBar.setSize(sf::Vector2f(60.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
+	this->hpBar.setPosition(this->sprite.getPosition());
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
 }
@@ -76,11 +88,14 @@ void RatEnemy::render(sf::RenderTarget & target, sf::Shader * shader, const sf::
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("light", light_position);
 		target.draw(this->sprite, shader);
+		
 	}
 	else
 	{
 		target.draw(this->sprite);
+		
 	}
+	target.draw(this->hpBar);
 
 	if (show_hitbox)
 		this->hitboxComponent->render(target);

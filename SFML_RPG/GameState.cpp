@@ -128,6 +128,11 @@ void GameState::initTileMap()
 	this->tileMap = new TileMap("text.slmp");
 }
 
+void GameState::initSystems()
+{
+	this->tts = new TextTagSystem("Fonts/joystix.ttf");
+}
+
 //Constructors / Destructors 
 GameState::GameState(StateData* state_data)
 	: State(state_data)
@@ -147,6 +152,7 @@ GameState::GameState(StateData* state_data)
 	this->initPlayerGUI();
 	this->initEnemySystem();
 	this->initTileMap();
+	this->initSystems();
 
 	
 }
@@ -158,6 +164,7 @@ GameState::~GameState()
 	delete this->playerGUI;
 	delete this->enemySystem;
 	delete this->tileMap;
+	delete this->tts;
 
 	for (size_t i = 0; i < this->activeEnemies.size(); i++)
 	{
@@ -228,8 +235,7 @@ void GameState::updatePlayerInput(const float & dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) //move pplayer down
 	{
 		this->player->move(0.f, 1.f, dt);
-		/*if (this->getKeytime())
-			this->player->loseHP(1);*/
+		
 	}
 	
 }
@@ -272,8 +278,8 @@ void GameState::updateCombatAndEnemies(const float & dt)
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-
-			this->activeEnemies.erase(this->activeEnemies.begin() + index);
+			this->tts->addTextTag(EXPERIANCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()), "", "+EXP");
+			this->enemySystem->removeEnemy(index);
 			--index;
 		}
 
@@ -284,13 +290,14 @@ void GameState::updateCombatAndEnemies(const float & dt)
 void GameState::updateCombat(Enemy* enemy, const int index, const float & dt)
 {
 		
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && enemy->getGlobalBounds().contains(this->mousePosView)
+			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())
 		{
-			if (this->player->getWeapon()->getAttackTimer()
-				&& enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < 30.f)
+			if (this->player->getWeapon()->getAttackTimer())
 			{
-				enemy->loseHP(this->player->getWeapon()->getDamageMin());
-				std::cout << enemy->getAttributeComponent()->hp <<  "\n";
+				int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
+				enemy->loseHP(dmg);
+				this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "-HP");
 			}
 		}
 	
@@ -316,6 +323,8 @@ void GameState::update(const float& dt)
 
 		//Update all enemies
 		this->updateCombatAndEnemies(dt);
+
+		this->tts->update(dt);
 	}
 	else //paused update
 	{
@@ -348,6 +357,8 @@ void GameState::render(sf::RenderTarget* target)
 	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false); //render the player on the window
 
 	this->tileMap->renderDeffered(this->renderTexture, &this->core_shader, this->player->getCenter());
+
+	this->tts->render(this->renderTexture);
 
 	//Render GUI
 	this->renderTexture.setView(this->renderTexture.getDefaultView());

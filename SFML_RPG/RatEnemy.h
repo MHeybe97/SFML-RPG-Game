@@ -6,8 +6,12 @@ class RatEnemy : public Enemy
 private:
 	void initVariables();
 	void initAnimations();
+	void initGUI();
+
+	sf::RectangleShape hpBar;
+
 public:
-	RatEnemy(float x, float y, sf::Texture& texture_sheet);
+	RatEnemy(float x, float y, sf::Texture& texture_sheet, EnemySpawner& enemy_spawner);
 	virtual ~RatEnemy();
 
 	//Functions

@@ -7,7 +7,8 @@
 void Player::initVariables()
 {
 	this->attacking = false;
-	this->sword = new Sword(20, "Resources/Images/Sprites/Player/sword.png");
+	this->sword = new Sword(1, 2, 5, 30, 20, "Resources/Images/Sprites/Player/sword.png");
+	this->sword->generate(1, 3);
 }
 
 void Player::initComponents()
