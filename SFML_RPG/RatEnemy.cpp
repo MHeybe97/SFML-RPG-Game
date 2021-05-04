@@ -17,6 +17,11 @@ void RatEnemy::initAnimations()
 	this->animationComponent->addAnimation("ATTACK", 0.4f, 0, 2, 1, 2, 60, 64);
 }
 
+void RatEnemy::initAi()
+{
+
+}
+
 void RatEnemy::initGUI()
 {
 	this->hpBar.setFillColor(sf::Color::Red);
@@ -24,14 +29,15 @@ void RatEnemy::initGUI()
 	this->hpBar.setPosition(this->sprite.getPosition());
 }
 
-RatEnemy::RatEnemy(float x, float y, sf::Texture& texture_sheet, EnemySpawner& enemy_spawner)
+RatEnemy::RatEnemy(float x, float y, sf::Texture& texture_sheet, EnemySpawner& enemy_spawner, Entity& player)
 	: Enemy(enemy_spawner)
 {
 	this->initVariables();
+	this->initAi();
 	this->initGUI();
 
 	this->createHitboxComponent(this->sprite, 10.f, 5.f, 45.f, 55.f);
-	this->createMovementComponent(300, 1500.f, 900.f);
+	this->createMovementComponent(70.f, 800.f, 500.f);
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
 	this->createSkillComponent();
@@ -40,12 +46,14 @@ RatEnemy::RatEnemy(float x, float y, sf::Texture& texture_sheet, EnemySpawner& e
 
 	this->setPosition(x, y);
 	this->initAnimations();
+
+	this->enemyAI = new EnemyAi(*this, player);
 }
 
 
 RatEnemy::~RatEnemy()
 {
-
+	delete this->enemyAI;
 }
 
 void RatEnemy::updateAnimation(const float & dt)
@@ -79,6 +87,8 @@ void RatEnemy::update(const float & dt, sf::Vector2f & mouse_pos_view)
 	this->hpBar.setPosition(this->sprite.getPosition());
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
+
+	this->enemyAI->update(dt);
 }
 
 void RatEnemy::render(sf::RenderTarget & target, sf::Shader * shader, const sf::Vector2f light_position, const bool show_hitbox)

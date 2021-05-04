@@ -527,7 +527,6 @@ void TileMap::updateTiles(Entity * entity, const float & dt, EnemySystem& enemyS
 					{
 						if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount())
 						{
-							//activeEnimies.push_back(new RatEnemy(x*this->gridSizeF, y*this->gridSizeF, textures["RAT1_SHEET"]));
 							enemySystem.createEnemy(RAT, x*this->gridSizeF, y*this->gridSizeF, *es);
 							es->setSpawned(true);
 							std::cout << "Spawned!" << "\n";

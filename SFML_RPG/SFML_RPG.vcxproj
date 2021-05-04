@@ -146,10 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIOption.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="AttributeComponent.cpp" />
     <ClCompile Include="DefaultEditorMode.cpp" />
     <ClCompile Include="EditorMode.cpp" />
+    <ClCompile Include="EnemyAi.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEditorMode.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
@@ -185,11 +187,13 @@
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIOption.h" />
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AttributeComponent.h" />
     <ClInclude Include="DefaultEditorMode.h" />
     <ClInclude Include="EditorMode.h" />
     <ClInclude Include="EditorModes.h" />
+    <ClInclude Include="EnemyAi.h" />
     <ClInclude Include="EnemiesInclude.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyEditorMode.h" />
