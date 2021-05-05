@@ -26,8 +26,8 @@ void GameState::initView()
 {
 	this->view.setSize(
 		sf::Vector2f(
-			static_cast<float>(this->stateData->gfxSettings->resolution.width), 
-			static_cast<float>(this->stateData->gfxSettings->resolution.height)
+			static_cast<float>(this->stateData->gfxSettings->resolution.width ), 
+			static_cast<float>(this->stateData->gfxSettings->resolution.height )
 		)
 	);
 
@@ -107,14 +107,14 @@ void GameState::initPlayerGUI()
 {
 	this->playerGUI = new PlayerGUI(this->player, this->stateData->gfxSettings->resolution);
 
-	this->gameOverText.setFont(this->font);
+	/*this->gameOverText.setFont(this->font);
 	this->gameOverText.setCharacterSize(60);
 	this->gameOverText.setFillColor(sf::Color::Red);
 	this->gameOverText.setString("GAME OVER! PRESS ESC & QUIT");
 	this->gameOverText.setPosition(
 		this->window->getSize().x / 2.f - this->gameOverText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->gameOverText.getGlobalBounds().height / 2.f
-	);
+	);*/
 }
 
 void GameState::initEnemySystem()
@@ -133,6 +133,18 @@ void GameState::initSystems()
 	this->tts = new TextTagSystem("Fonts/joystix.ttf");
 }
 
+void GameState::initGameOverScreen()
+{
+	this->gameOverText.setFont(this->font);
+	this->gameOverText.setCharacterSize(60);
+	this->gameOverText.setFillColor(sf::Color::Red);
+	this->gameOverText.setString("GAME OVER! PRESS ESC & QUIT");
+	this->gameOverText.setPosition(
+		this->window->getSize().x / 2.f - this->gameOverText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->gameOverText.getGlobalBounds().height / 2.f
+	);
+}
+
 //Constructors / Destructors 
 GameState::GameState(StateData* state_data)
 	: State(state_data)
@@ -144,15 +156,12 @@ GameState::GameState(StateData* state_data)
 	this->initTextures();
 	this->initPauseMenu();
 	this->initShaders();
-
-	/*this->activeEnemies.push_back(new RatEnemy(200.f, 100.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new RatEnemy(500.f, 100.f, this->textures["RAT1_SHEET"]));*/
-
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initEnemySystem();
 	this->initTileMap();
 	this->initSystems();
+	this->initGameOverScreen();
 
 	
 }
@@ -265,6 +274,9 @@ void GameState::updatePlayer(const float & dt)
 
 void GameState::updateCombatAndEnemies(const float & dt)
 {
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->getWeapon()->getAttackTimer())
+		this->player->setInitAttack(true);
+
 	unsigned index = 0;
 	for (auto *enemy : this->activeEnemies)
 	{
@@ -278,29 +290,38 @@ void GameState::updateCombatAndEnemies(const float & dt)
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->tts->addTextTag(EXPERIANCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()), "", "+EXP");
+			this->tts->addTextTag(EXPERIANCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 			this->enemySystem->removeEnemy(index);
 			--index;
 		}
 
 		++index;
 	}
+	this->player->setInitAttack(false);
 }
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float & dt)
 {
 		
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && enemy->getGlobalBounds().contains(this->mousePosView)
-			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())
+		if (this->player->getInitAttack() 
+			&& enemy->getGlobalBounds().contains(this->mousePosView)
+			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()
+			&& enemy->getDamageTimerDone())
 		{
-			if (this->player->getWeapon()->getAttackTimer())
-			{
-				int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
-				enemy->loseHP(dmg);
-				this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "-HP");
-			}
+			int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
+            enemy->loseHP(dmg);
+			enemy->resetDamageTimer();
+			this->tts->addTextTag(DEFAULT_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "");
+			
 		}
-	
+
+		//Enemy attacking player
+		if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer())
+		{
+			int dmg = enemy->getAttributeComponent()->damageMax;
+			this->player->loseHP(dmg);
+			this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x -  50.f, enemy->getPosition().y, dmg, "", "");
+		}
 }
 
 void GameState::update(const float& dt)
@@ -308,8 +329,8 @@ void GameState::update(const float& dt)
 	this->updateMousePositions(&this->view); //update mouse position in gamestate
 	this->updateKeytime(dt);
 	this->updateInput(dt);
-
-	if (!this->paused && !this->player->isAlive()) //unpaused update
+	
+	if (!this->paused && this->player->getAttributeComponent()->hp > 0) //unpaused update
 	{
 		this->updateView(dt);
 
@@ -365,7 +386,7 @@ void GameState::render(sf::RenderTarget* target)
 	this->playerGUI->render(this->renderTexture);
 
 	//Game Over Screen
-	if (this->player->isAlive())
+	if (this->player->getAttributeComponent()->hp <= 0)
 		this->renderTexture.draw(this->gameOverText);
 
 	if (this->paused) //pause menu render

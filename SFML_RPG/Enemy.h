@@ -6,9 +6,13 @@
 class Enemy : public Entity
 {
 private:
+
+protected:
 	//Variables
 	EnemySpawner& enemySpawner;
 	unsigned gainExp;
+	sf::Clock damageTimer;
+	sf::Int32 damageTimerMax;
 
 	//Initializer Functions
 	virtual void initVariables() = 0;
@@ -20,6 +24,11 @@ public:
 	//Accessors
 	const unsigned& getGainExp() const;
 	EnemySpawner& getEnemySpawner();
+	const bool getDamageTimerDone() const;
+
+	//Modifiers
+	void resetDamageTimer();
+
 	//Functions
 	virtual void generateAttributes(const unsigned level);
 	virtual void loseHP(const int hp);

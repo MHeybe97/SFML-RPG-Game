@@ -12,8 +12,12 @@ private:
 	//variables
 	Inventory* inventory;
 
+	bool initAttack;
 	bool attacking;
 	Sword* sword;
+
+	sf::Clock damageTimer;
+	sf::Int32 damageTimerMax;
 	
 	//Initializer functions
 	void initVariables();
@@ -28,6 +32,12 @@ public:
 	//Accessors
 	AttributeComponent* getAttributeComponent();
 	Weapon* getWeapon();
+
+	const bool& getInitAttack() const;
+	const bool getDamageTimer();
+
+	//Modifiers
+	void setInitAttack(const bool initAttack);
 
 	//Functions
 	void loseHP(const int hp);

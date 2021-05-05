@@ -6,9 +6,12 @@
 //Initializer functions
 void Player::initVariables()
 {
+	this->initAttack = false;
 	this->attacking = false;
-	this->sword = new Sword(1, 2, 5, 30, 20, "Resources/Images/Sprites/Player/sword.png");
+	this->sword = new Sword(1, 2, 5, 60, 20, "Resources/Images/Sprites/Player/sword.png");
 	this->sword->generate(1, 3);
+
+	this->damageTimerMax = 1200;
 }
 
 void Player::initComponents()
@@ -66,6 +69,27 @@ AttributeComponent * Player::getAttributeComponent()
 Weapon * Player::getWeapon() 
 {
 	return this->sword;
+}
+
+const bool & Player::getInitAttack() const
+{
+	return this->initAttack;
+}
+
+const bool Player::getDamageTimer()
+{
+	if (this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax)
+	{
+		this->damageTimer.restart();
+		return true;
+	}
+
+	return false;
+}
+
+void Player::setInitAttack(const bool initAttack)
+{
+	this->initAttack = initAttack;
 }
 
 

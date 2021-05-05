@@ -32,12 +32,10 @@ private:
 	PlayerGUI* playerGUI;
 	sf::Texture texture;
 
-	//Enemy
-	
-
 	//TileMap
 	TileMap* tileMap;
 
+	//Enemy
 	std::vector<Enemy*> activeEnemies;
 	EnemySystem *enemySystem;
 
@@ -45,7 +43,7 @@ private:
 	TextTagSystem* tts;
 	
 
-	//functions
+	//Functions
 	void initDeferredRender();
 	void initView();
 	void initKeybinds(); //initialise keybinds
@@ -58,6 +56,7 @@ private:
 	void initEnemySystem();
 	void initTileMap();
 	void initSystems();
+	void initGameOverScreen();
 
 public:
 	GameState(StateData* state_data); //constructor
