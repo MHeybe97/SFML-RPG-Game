@@ -3,6 +3,11 @@
 #include "AnimationComponent.h"
 
 //Constructor
+//! AnimationComponent class constructor
+	/*!
+	\param sprite a sf::Sprite object - the sprite to be animated
+	\param texture_sheet a sf::Texture object - the texture sheet used for the animation
+	*/
 AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet)
 	:sprite(sprite), textureSheet(texture_sheet), lastAnimation(NULL), priorityAnimation(NULL)
 {
@@ -10,6 +15,10 @@ AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_
 }
 
 //Destructor
+//! AnimationComponent class destructor
+	/*!
+	\brief delete animations
+	*/
 AnimationComponent::~AnimationComponent()
 {
 	for (auto &i : this->animations)
@@ -18,8 +27,18 @@ AnimationComponent::~AnimationComponent()
 	}
 }
 
-
-
+//Functions
+	//! Function to to add an animation
+	/*!
+	\param key a std::string - the name of the animation
+	\param animation_timer a float - how quick to loop through the spritesheet
+	\param start_frame_x an int - the frame to start on the x-axis
+	\param start_frame_y an int - the frame to start on the y-axis
+	\param frames_x an int - frames in the x-axis
+	\param frames_y an int - frames in the y-axis
+	\param width an int - the width of the frame
+	\param height an int - the height of the frame
+	*/
 void AnimationComponent::addAnimation(
 	const std::string key, 
 	float animation_timer,
@@ -32,12 +51,22 @@ void AnimationComponent::addAnimation(
 }
 
 //Accessors
+//! Function to get the animation that is done
+	/*!
+	\param key a std::string - gets the particular animation that is done
+	*/
 const bool & AnimationComponent::isDone(const std::string key) 
 {
 	return this->animations[key]->isDone();
 }
 
 //Functions
+//! Function to play priority animations
+	/*!
+	\param key a std::string - the name of the animation
+	\param dt a float - delta time 
+	\return a boolean if it's a priority animation
+	*/
 const bool& AnimationComponent::play(const std::string key, const float & dt, const bool priority)
 {
 	
@@ -85,6 +114,14 @@ const bool& AnimationComponent::play(const std::string key, const float & dt, co
 	return this->animations[key]->isDone();
 }
 
+//! Function to play priority animations
+	/*!
+	\param key a std::string - the name of the animation
+	\param dt a float - delta time
+	\param modifier a float - animation modifier
+	\param modifier_max a float - the modifier maximum value
+	\return a boolean if it's a priority animation
+	*/
 const bool& AnimationComponent::play(const std::string key, const float & dt, const float& modifier, const float& modifier_max, const bool priority)
 {
 	if (this->priorityAnimation) //if there is a priority animation

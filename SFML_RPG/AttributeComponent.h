@@ -1,50 +1,54 @@
 /**\file AttributeComponent.h*/
 #pragma once
+
+/*! \class Animation
+\brief a class to handle all stats and leveling of the games entities like the player and enemies
+*/
 class AttributeComponent
 {
 private:
 
 public:
 	//Leveling 
-	int level;
-	int exp;
-	int expNext;
-	int attributePoints;
+	int level; //!< level for all entities in the game i.e player and enemy
+	int exp; //!< the players experiance points
+	int expNext; //!< the experiance points needed to level up
+	int attributePoints; //! entities attribute points
 	
 	//Attributes
-	int vitality;
-	int strength;
-	int dexterity;
-	int agility;
-	int intelligence;
+	int vitality; //!< entities vitality
+	int strength; //!< entities strength
+	int dexterity; //!< entities dexterity
+	int agility; //!< entities agility
+	int intelligence; //!< entities intelligence
 
 	//Stats
-	int hp;
-	int hpMax;
-	int damageMin;
-	int damageMax;
-	int accuracy;
-	int defence;
-	int luck;
+	int hp; //!< entities helth points
+	int hpMax; //!< entities max health points
+	int damageMin; //!< minimum damage to be dealt
+	int damageMax; //!< maximum damage to be dealt
+	int accuracy; //!< entities accuracy
+	int defence; //!< entities defence
+	int luck; //!< entities  luck
 
 	//Con & Dest
-	AttributeComponent(int level);
-	virtual ~AttributeComponent();
+	AttributeComponent(int level); //!< AttributeComponent constructor
+	virtual ~AttributeComponent(); //!< AttributeComponent destructor
 
 	//Functions
-	std::string debugPrint() const;
+	std::string debugPrint() const; //!< debug text to be printed on the screen
 
-	void loseHP(const int hp);
-	void gainHP(const int hp);
-	void loseEXP(const int exp);
-	void gainEXP(const int exp);
+	void loseHP(const int hp); //!< function to decrease hp
+	void gainHP(const int hp); //!< function to increase hp
+	void loseEXP(const int exp); //!< function to lose experiance points
+	void gainEXP(const int exp); //!< function to gain experiance points
 
-	const bool isDead() const;
-	const bool isAlive() const;
+	const bool isDead() const; //!< function to check if hp is less than or equal to 0
+	const bool isAlive() const; //!< function to check if hp is less than or equal to 0
 
-	void updateStats(const bool reset);
-	void updateLevel();
+	void updateStats(const bool reset); //1< function to update entity stats
+	void updateLevel(); //!< function update the player level
 
-	void update();
+	void update(); //!< update levels
 };
 

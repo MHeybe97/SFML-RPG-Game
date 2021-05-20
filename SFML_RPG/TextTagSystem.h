@@ -1,21 +1,34 @@
 /**\file TextTagSystem.h*/
 #pragma once
 
-enum TAGTYPES { DEFAULT_TAG, NEGATIVE_TAG, POSITIVE_TAG, EXPERIANCE_TAG};
+enum TAGTYPES { DEFAULT_TAG, NEGATIVE_TAG, POSITIVE_TAG, EXPERIANCE_TAG}; //!< enum for different text tags
 
+/*!\class TextTagSystem
+\brief a class for text tags that float above the player
+*/
 class TextTagSystem
 {
 private:
+	/*!\class TextTag
+\brief an inner class for the visual of the text tag
+*/
 	class TextTag
 	{
 	private: 
-		sf::Text text;
-		float dirY;
-		float dirX;
-		float lifeTime;
-		float speed;
+		sf::Text text; //!< text tag name
+		float dirY; //!< direction tag will float in the y-axis
+		float dirX; //!< direction tag will float in the x-axis
+		float lifeTime; //!< how long the tag will be visible
+		float speed; //!< how fast the tag floats accross the screen
 
 	public:
+		//Constructor
+        //! Enemy TextTag constructor
+	    /*!
+	    \param font a sf::Font object - the tag font
+		\param text a std::string object - tag description
+		\param pos_x a float 
+	   */
 		TextTag(sf::Font& font, std::string text,
 			float pos_x, float pos_y,
 			float dir_x, float dir_y,

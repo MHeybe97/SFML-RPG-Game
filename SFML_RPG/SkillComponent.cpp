@@ -2,7 +2,10 @@
 #include "stdafx.h"
 #include "SkillComponent.h"
 
-
+//Constructor
+//! SkillComponent class constructor
+	/*!
+	*/
 SkillComponent::SkillComponent()
 {
 	this->skills.push_back(Skill(CONSTITUTION));
@@ -10,11 +13,18 @@ SkillComponent::SkillComponent()
 	this->skills.push_back(Skill(ENDURANCE));
 }
 
-
+//Destructor
+//! HitboxComponent class destructor
+	/*!
+	*/
 SkillComponent::~SkillComponent()
 {
 }
 
+//! Function to get skill  
+	/*!
+	\param skill int - the number of skills in the the skills vector
+	*/
 const int SkillComponent::getSkill(const int skill) const
 {
 	if (skills.empty() || skill < 0 || skill >= this->skills.size())
@@ -23,6 +33,11 @@ const int SkillComponent::getSkill(const int skill) const
 		return this->skills[skill].getLevel();
 }
 
+//! Function to gain skill exp
+	/*!
+	\param skill int - the number of skills in the the skills vector
+	\param exp an int - skill exp
+	*/
 const void SkillComponent::gainExp(const int skill, const int exp)
 {
 	if (skills.empty() || skill < 0 || skill >= this->skills.size())

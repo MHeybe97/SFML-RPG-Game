@@ -2,7 +2,11 @@
 #include "stdafx.h"
 #include "AttributeComponent.h"
 
-
+//Constructor
+//! AttributeComponent class constructor
+	/*!
+	\param level an int - the level to set the entity on 
+	*/
 AttributeComponent::AttributeComponent(int level)
 {
 	this->level = level;
@@ -20,12 +24,20 @@ AttributeComponent::AttributeComponent(int level)
 	this->updateStats(true);
 }
 
-
+//Destructor
+//! AttribbuteComponent class destructor
+	/*!
+	\
+	*/
 AttributeComponent::~AttributeComponent()
 {
 }
 
-
+//Functions
+//! Function to print debug text on the screen
+	/*!
+	\brief to check if stats are working
+	*/
 std::string AttributeComponent::debugPrint() const
 {
 	std::stringstream ss;
@@ -38,6 +50,10 @@ std::string AttributeComponent::debugPrint() const
 	return ss.str();
 }
 
+//! Function to lose health points when attacked
+	/*!
+	\param hp an int - the entities health point
+	*/
 void AttributeComponent::loseHP(const int hp)
 {
 	this->hp -= hp;
@@ -46,6 +62,10 @@ void AttributeComponent::loseHP(const int hp)
 		this->hp = 0;
 }
 
+//! Function to gain health points 
+	/*!
+	\param hp an int - the entities health point
+	*/
 void AttributeComponent::gainHP(const int hp)
 {
 	this->hp += hp;
@@ -54,6 +74,10 @@ void AttributeComponent::gainHP(const int hp)
 		this->hp = this->hpMax;
 }
 
+//! Function to lose experiance points
+	/*!
+	\param exp an int - the entities experiance point
+	*/
 void AttributeComponent::loseEXP(const int exp)
 {
 	this->exp -= exp;
@@ -62,6 +86,10 @@ void AttributeComponent::loseEXP(const int exp)
 		this->exp = 0;
 }
 
+//! Function to lose experiance points
+	/*!
+	\param exp an int - the entities experiance point
+	*/
 void AttributeComponent::gainEXP(const int exp)
 {
 	this->exp += exp;
@@ -69,20 +97,31 @@ void AttributeComponent::gainEXP(const int exp)
 	this->updateLevel();
 }
 
+//! Function to retuen hp when it's 0
+	/*!
+	\brief used to see if an entity hp is 0
+	*/
 const bool AttributeComponent::isDead() const
 {
 	return this->hp <= 0;
 }
 
+//! Function to retuen hp when it's 0
+	/*!
+	\brief used to see if an entity hp is 0
+	*/
 const bool AttributeComponent::isAlive() const
 {
 	return this->hp <= 0;
 }
 
-//Functions
+//! Function to upate attribute stats
+	/*!
+	\return a boolean when the hp is reset
+	*/
 void AttributeComponent::updateStats(const bool reset)
 {
-	this->hpMax       = this->vitality     * 9 + this->vitality + this->strength / 2 + this->intelligence / 5;
+	this->hpMax       = this->vitality     * 19 + this->vitality + this->strength / 2 + this->intelligence / 5;
 	this->damageMin   = this->strength     * 2 + this->strength                  / 4 + this->intelligence / 5;
 	this->damageMax   = this->strength     * 2 + this->strength                  / 2 + this->intelligence / 5;
 	this->accuracy    = this->dexterity    * 5 + this->dexterity                 / 2 + this->intelligence / 5;
@@ -96,6 +135,10 @@ void AttributeComponent::updateStats(const bool reset)
 	}
 }
 
+//! Function to upate leveling
+	/*!
+	\brief how leveling entities is decided
+	*/
 void AttributeComponent::updateLevel()
 {
 	while (this->exp >= this->expNext)
@@ -107,6 +150,10 @@ void AttributeComponent::updateLevel()
 	}
 }
 
+//! Function to upate levels
+	/*!
+	\brief update the level
+	*/
 void AttributeComponent::update()
 {
 	this->updateLevel();

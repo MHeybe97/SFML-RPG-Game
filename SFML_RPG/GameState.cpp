@@ -395,8 +395,6 @@ void GameState::render(sf::RenderTarget* target)
 		this->pmenu->render(this->renderTexture);
 	}
 
-	
-
 	this->renderTexture.display();
 	//this->renderSprite.setTexture(this->renderTexture.getTexture());
 	target->draw(this->renderSprite);

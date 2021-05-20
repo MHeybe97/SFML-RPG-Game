@@ -2,12 +2,17 @@
 #include "stdafx.h"
 #include "PlayerGUI.h"
 
-
+//! Function to load font from file
+	/*!
+	*/
 void PlayerGUI::initFonts()
 {
 	this->font.loadFromFile("Fonts/KurriIslandItaPersonalBold-d95qR.ttf");
 }
 
+//! Function to initialise level bar
+	/*!
+	*/
 void PlayerGUI::initLevelBar()
 {
 	float width = gui::p2pX(2.1f, this->vm);
@@ -26,6 +31,9 @@ void PlayerGUI::initLevelBar()
 		this->levelBarBack.getPosition().y + gui::p2pY(0.65f, this->vm));
 }
 
+//! Function to initialise exp bar
+	/*!
+	*/
 void PlayerGUI::initEXPBar()
 {
 	
@@ -51,13 +59,11 @@ void PlayerGUI::initEXPBar()
 		this->expBarBack.getPosition().y + gui::p2pY(0.45f, this->vm));
 }
 
+//! Function to initialise hp bar
+	/*!
+	*/
 void PlayerGUI::initHPBar()
 {
-	/*this->hpBar = new gui::ProgressBar(
-		1.4, 11.7, 14.6f, 3.9f, 
-		sf::Color::Red, 120,
-		this->vm, 
-		&this->font);*/
 
 	float width = gui::p2pX(14.6f, this->vm);
 	float height = gui::p2pY(3.9f, this->vm);
@@ -80,6 +86,12 @@ void PlayerGUI::initHPBar()
 	);
 }
 
+//Constructor
+//! PlayerGUI class constructor
+	/*!
+	\param player a Player object - the player
+	\param vm a sf::VideoMode object - to get the window properties
+	*/
 PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm)
 	: vm(vm)
 {
@@ -91,22 +103,30 @@ PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm)
 	this->initHPBar();
 }
 
-
+//Destructor
+//! Enemy class destructor
+	/*!
+	*/
 PlayerGUI::~PlayerGUI()
 {
 	//delete this->hpBar;
 	
 }
 
+//! Function to update level bar when new level is reached 
+	/*!
+	*/
 void PlayerGUI::updateLevelBar()
 {
 	this->levelBarString = std::to_string(this->player->getAttributeComponent()->level);
 	this->levelBarText.setString(this->levelBarString);
 }
 
+//! Function to update the exp bar
+	/*!
+	*/
 void PlayerGUI::updateEXPBar()
 {
-	//this->expBar->update(this->player->getAttributeComponent()->exp, this->player->getAttributeComponent()->expNext);
 
 	float percent = static_cast<float>(this->player->getAttributeComponent()->exp) / static_cast<float>(this->player->getAttributeComponent()->expNext);
 
@@ -122,10 +142,11 @@ void PlayerGUI::updateEXPBar()
 	this->expBarText.setString(this->expBarString);
 }
 
-//Functions
+//! Function to update hp bar
+	/*!
+	*/
 void PlayerGUI::updateHPBar()
 {
-	//this->hpBar->update(this->player->getAttributeComponent()->hp, this->player->getAttributeComponent()->hpMax);
 
 	float percent = static_cast<float>(this->player->getAttributeComponent()->hp) / static_cast<float>(this->player->getAttributeComponent()->hpMax);
 	this->hpBarInner.setSize(
@@ -138,7 +159,10 @@ void PlayerGUI::updateHPBar()
 	this->hpBarText.setString(this->hpBarString);
 }
 
-
+//! Function to update all gui bars
+	/*!
+	\param dt a float - to update using delta time
+	*/
 void PlayerGUI::update(const float & dt)
 {
 	this->updateLevelBar();
@@ -146,30 +170,43 @@ void PlayerGUI::update(const float & dt)
 	this->updateHPBar();
 }
 
+//! Function to render level bar
+	/*!
+	\param target a sf::RenderTarget object - the target to be rendered  
+	*/
 void PlayerGUI::renderLevelBar(sf::RenderTarget & target)
 {
 	target.draw(this->levelBarBack);
 	target.draw(this->levelBarText);
 }
 
+//! Function to render exp bar
+	/*!
+	\param target a sf::RenderTarget object - the target to be rendered
+	*/
 void PlayerGUI::renderEXPBAR(sf::RenderTarget & target)
 {
-	//this->expBar->render(target);
 
 	target.draw(this->expBarBack);
 	target.draw(this->expBarInner);
 	target.draw(this->expBarText);
 }
 
+//! Function to render hp bar
+	/*!
+	\param target a sf::RenderTarget object - the target to be rendered
+	*/
 void PlayerGUI::renderHPBar(sf::RenderTarget & target)
 {
-	//this->hpBar->render(target);
-
 	target.draw(this->hpBarBack);
 	target.draw(this->hpBarInner);
 	target.draw(this->hpBarText);
 }
 
+//! Function to render all bars
+	/*!
+	\param target a sf::RenderTarget object - the target to be rendered
+	*/
 void PlayerGUI::render(sf::RenderTarget & target)
 {
 	this->renderLevelBar(target);

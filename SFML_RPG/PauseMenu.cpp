@@ -3,7 +3,12 @@
 #include "PauseMenu.h"
 
 
-
+//Constructor
+//! PauseMenu class constructor
+	/*!
+	\param vm a sf::VideoMode object - to get the screen properties
+	\param font a sf::Font - the font for the menu
+	*/
 PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font)
 	: font(font)
 {
@@ -40,7 +45,10 @@ PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font)
 	);
 }
 
-
+//Destructor
+//! PauseMenu class destructor
+	/*!
+	*/
 PauseMenu::~PauseMenu()
 {
 	//delete the buttons
@@ -51,6 +59,9 @@ PauseMenu::~PauseMenu()
 	}
 }
 
+//! Function to return buttons
+	/*!
+	*/
 std::map<std::string, gui::Button*>& PauseMenu::getButtons()
 {
 	return this->buttons;
@@ -59,11 +70,25 @@ std::map<std::string, gui::Button*>& PauseMenu::getButtons()
 
 
 //Functions
+//! Function to check if button is pressed
+	/*!
+	\param key a std::string - the name of the button 
+	*/
 const bool PauseMenu::isButtonPressed(const std::string key) 
 {
+	//check if the button is pressed
 	return this->buttons[key]->isPressed();
 }
 
+//! Function to return enemySpawner
+	/*!
+	\param key a std:string - the name of the button
+	\param y a float - position of button in y-axis
+	\param width a float - the width of the button
+	\param height a float - the height of the button
+	\param char_size an unsigned - size of button letters
+	\param text a std::string - button text
+	*/
 void PauseMenu::addButton(
 	const std::string key, 
 	const float y,
@@ -72,8 +97,7 @@ void PauseMenu::addButton(
 	const unsigned char_Size, 
 	const std::string text)
 {
-	/*float width = 250.f;
-	float height = 50.f;*/
+
 	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
 
 	this->buttons[key] = new gui::Button(
@@ -84,7 +108,11 @@ void PauseMenu::addButton(
 	);
 }
 
-void PauseMenu::update(const   sf::Vector2i& mousePosWindow)
+//! Function to update menu
+	/*!
+	\param mousePosWindow a sf::vector2i - for where the button is clicked
+	*/
+void PauseMenu::update(const sf::Vector2i& mousePosWindow)
 {
 	for (auto &i : this->buttons)
 	{
@@ -92,6 +120,10 @@ void PauseMenu::update(const   sf::Vector2i& mousePosWindow)
 	}
 }
 
+//! Function to render the pause menu
+	/*!
+	\param target a sf::RenderTarget - the menu target to be rendered
+	*/
 void PauseMenu::render(sf::RenderTarget & target)
 {
 	target.draw(this->background);
